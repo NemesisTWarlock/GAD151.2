@@ -33,6 +33,9 @@ public class Arena : MonoBehaviour
 		{
 		Fight(player1, enemyList[0]);
 		}
+
+		//then Check wether the player's dead or not
+		Checkhealth(player1);
 	}
 
 
@@ -41,21 +44,27 @@ public class Arena : MonoBehaviour
 		if (playerInst.playerHealth > 0) 
 		{
 			playerInst.Attack (enemyInst);
+
 			//Check if the attack has killed the enemy
 			if (enemyInst.enemyHealth == 0) 
 			{
 				//create a temporaty item
-				Item tempItem = new Item();
+				Item tempItem = new Item ();
 				//Drop the loot
-				tempItem.DropLoot(enemyInst);
+				tempItem.DropLoot (enemyInst);
 				//pick up the loot
-				tempItem.GrabLoot(playerInst, enemyInst);
+				tempItem.GrabLoot (playerInst, enemyInst);
 				//destroy the temporary item
 				tempItem = null;
 				//destroy the enemy object
-				enemyList.Clear();
+				enemyList.Clear ();
 				//spawn a new one
-				SpawnEnemy();
+				SpawnEnemy ();
+			}
+			//if not, attack the player back
+			else 
+			{
+				enemyInst.Attack (playerInst);
 			}
 		}
 	}
