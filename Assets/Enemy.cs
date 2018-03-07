@@ -9,32 +9,41 @@ using UnityEngine;
 public class Enemy {  
     
 	/// <summary>The Enemy's name.</summary>
-	public string enemyName = "Slime";
+	public string enemyName;
 
 	/// <summary>The Enemy's Current health.</summary>
-	public int enemyHealth = 10;
+	public int enemyHealth;
 
 	/// <summary>The Enemy's total Damage output.</summary>
-	public int enemyDamage = 2;
+	public int enemyDamage;
 
 	/// <summary>The amount of GP the enemy is carrying.</summary>
-	public int enemyGold = 5;	
+	public int enemyGold;	
+
+	public string enemyItem;
 
 
 	//Default Constructor
 	public Enemy ()
 	{
+		enemyName = "Slime";
+		enemyHealth = 10;
+		enemyDamage = 2;
+		enemyItem = "Slime Goo";
+		enemyGold = 5;
+
 
 	}
 
 	//Custom Constructor
-	public Enemy ( string enemyNameIN, int enemyHealthIN, int enemyDamageIN, int enemyGoldIN )
+	public Enemy ( string enemyNameIN, int enemyHealthIN, int enemyDamageIN, string enemyItemIN, int enemyGoldIN )
 	{
 		
 		//set custom attributes
 		enemyName = enemyNameIN;
 		enemyHealth = enemyHealthIN;
 		enemyDamage = enemyDamageIN;
+		enemyItem = enemyItemIN;
 		enemyGold = enemyGoldIN;
 
 

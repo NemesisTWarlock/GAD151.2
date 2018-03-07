@@ -7,14 +7,18 @@ public class Item {
 
 
 	/// <summary>The name of the item.</summary>
-	public string itemName = "Bag of Gold";
+	public string itemName;
 
 	/// <summary>The amount of gold the item contains.</summary>
-	public int itemGold = 5; 
+	public int itemGold; 
 
 
 	//Default constructor (FOR TESTING ONLY)
-
+	public Item()
+	{
+		itemName = "Bag of Gold";
+		itemGold = 5;
+	}
 
 	public Item (string itemNameIN, int itemGoldIN)
 	{
@@ -23,6 +27,10 @@ public class Item {
 	}
 
 
+	public void DropLoot(Enemy enemyInst)
+	{
+		itemGold = enemyInst.enemyGold;
+	}
 
 		/// <summary>Prints an item drop message when triggered.</summary>
 	public void GrabLoot(Player playerInst, Enemy enemyInst)
