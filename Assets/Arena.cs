@@ -31,7 +31,7 @@ public class Arena : MonoBehaviour
 		//when mouse button clicked, Fight opponent
 		if(Input.GetMouseButtonDown(0))
 		{
-		Fight(player1, enemyList[0]);
+			Fight(player1, enemyList[0]);
 		}
 
 		//then Check wether the player's dead or not
@@ -75,12 +75,20 @@ public class Arena : MonoBehaviour
 		enemyList[0].Encounter();
 	}
 
+	/// <summary>
+	/// Check's the Player's health, and cleanly stops the game when they die.
+	/// </summary>
+	/// <param name="playerInst">Selected Player instance.</param>
 	void Checkhealth(Player playerInst)
-	{    
+	{   
+		//if the player's dead, jump back to Update(); (which should cleanly loop nothing)
 		if (playerIsDead) return;
+
+		//when the player's health hits Zero, declare the player is dead, yo!
 		if (playerInst.playerHealth == 0) 
 		{
-			Debug.Log ("You Dead, yo!");
+			Debug.Log ("Alas,"+playerInst.playerName+" has Fallen.");
+			Debug.Log("GAME OVER");
 			playerIsDead = true;
 		}
 		
