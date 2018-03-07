@@ -4,58 +4,77 @@ using UnityEngine;
 
 
 
-[System.Serializable]
-/// <summary>Contains basic Enemy info.</summary>
+[System.Serializable]//Makes Enemy stats viewable in the Unity Editor.
+/// <summary>
+/// Contains basic Enemy info.
+/// </summary>
 public class Enemy {  
     
-	/// <summary>The Enemy's name.</summary>
+	/// <summary>
+	/// The Enemy's name.
+	/// </summary>
 	public string enemyName;
 
-	/// <summary>The Enemy's Current health.</summary>
+	/// <summary>
+	/// The Enemy's Current health.
+	/// </summary>
 	public int enemyHealth;
 
-	/// <summary>The Enemy's total Damage output.</summary>
+	/// <summary>
+	/// The Enemy's total Damage output.
+	/// </summary>
 	public int enemyDamage;
 
-	/// <summary>The amount of GP the enemy is carrying.</summary>
-	public int enemyGold;	
-
+	/// <summary>
+	/// The name of the item the Enemy is Carrying.
+	/// </summary>
 	public string enemyItem;
 
+	/// <summary>
+	/// The amount of GP the enemy is carrying.
+	/// </summary>
+	public int enemyGold;	
 
-	//Default Constructor
+
+
+
+	/// <summary>
+	/// Default Constructor for the <see cref="Enemy"/> class.
+	/// </summary>
 	public Enemy ()
-	{
+	{		
 		enemyName = "Slime";
 		enemyHealth = 10;
 		enemyDamage = 2;
 		enemyItem = "Slime Goo";
 		enemyGold = 5;
-
-
 	}
 
-	//Custom Constructor
+	/// <summary>
+	/// Custom constructor for the <see cref="Enemy"/> class.
+	/// </summary>
 	public Enemy ( string enemyNameIN, int enemyHealthIN, int enemyDamageIN, string enemyItemIN, int enemyGoldIN )
-	{
-		
+	{		
 		//set custom attributes
 		enemyName = enemyNameIN;
 		enemyHealth = enemyHealthIN;
 		enemyDamage = enemyDamageIN;
 		enemyItem = enemyItemIN;
 		enemyGold = enemyGoldIN;
-
-
-
 	}
 
-	/// <summary>Prints a message when triggered.</summary>
+	/// <summary>
+	/// Prints a message declaring combat has begun to the Debug Log.
+	/// </summary>
 	public void Encounter()
 	{
 			Debug.Log ("A "+ enemyName + " draws near!");
 	}
 
+	/// <summary>
+	/// Attack the specified player instance.
+	/// </summary>
+	/// <param name="playerInst">player instance to attack.</param>
 	public void Attack(Player playerInst)
 	{
 		//use Mathf.Max to make sure the player's Health doesn't fall below 0	

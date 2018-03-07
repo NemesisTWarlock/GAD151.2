@@ -1,15 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-[System.Serializable]
-/// <summary>Contains basic Item info.</summary>
+[System.Serializable]//Displays this classes' variables in the Unity Editor.
+
+/// <summary>
+/// Basic item info.
+/// </summary>
 public class Item {
 
 
-	/// <summary>The name of the item.</summary>
+	/// <summary>
+	/// The name of the item.
+	/// </summary>
 	public string itemName;
 
-	/// <summary>The amount of gold the item contains.</summary>
+	/// <summary>
+	/// The amount of gold the item contains.
+	/// </summary>
 	public int itemGold; 
 
 
@@ -20,19 +27,18 @@ public class Item {
 		itemGold = 5;
 	}
 
-	public Item (string itemNameIN, int itemGoldIN)
-	{
-		itemName = itemNameIN;
-		itemGold = itemGoldIN;
-	}
 
-
-	public void DropLoot(Enemy enemyInst)
+	public Item (Enemy enemyInst)
 	{
+		itemName = enemyInst.enemyItem;
 		itemGold = enemyInst.enemyGold;
 	}
 
-		/// <summary>Prints an item drop message when triggered.</summary>
+/// <summary>
+/// Adds the item's gold value to the player
+/// </summary>
+/// <param name="playerInst">Player inst.</param>
+/// <param name="enemyInst">Enemy inst.</param>
 	public void GrabLoot(Player playerInst, Enemy enemyInst)
 		{
 		playerInst.playerGold += itemGold;	

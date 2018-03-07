@@ -2,35 +2,52 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-/// <summary>Contains Basic player Info.</summary>
+[System.Serializable]//Displays Player stats in the Unity Editor.
+
+
+/// <summary>
+/// Basic player info.
+/// </summary>
 public class Player {
 
+	/// <summary>
+	/// The name of the player.
+	/// </summary>
+	public string playerName;
+
+	/// <summary>
+	/// The player's health.
+	/// </summary>
+	public int playerHealth;
+
+	/// <summary>
+	/// The total damage.
+	/// </summary>
+	public int totalDamage;
+
+	/// <summary>
+	/// The total Gold the player is carrying.
+	/// </summary>
+	public int playerGold;
 
 
-	/// <summary>The name of the player.</summary>
-	public string playerName = "Erdrick";
-
-	/// <summary>The player's total health.</summary>
-	public int playerHealth = 50;
-
-	/// <summary>The player's total damage output.</summary>
-	public int totalDamage = 5;
-
-	/// <summary>The amount of GP the player is carrying.</summary>
-	public int playerGold = 0;
-
-	//Default Constructor
+	/// <summary>
+	/// Default Constructor for the <see cref="Player"/>class.
+	/// </summary>
 	public Player()
 	{
+		playerName = "Erdrick";
+		playerHealth = 50;
+		totalDamage = 5;
+		playerGold = 0;
 	}
 
-		/// <summary>Prints a greeting to the Debug Log.</summary>
-		public void Greet()
-		{
-				//print the greeting.
-			Debug.Log("Hail! My name is " + playerName+"!");
-		}
+// <summary>Prints a greeting to the Debug Log.(deprecated)</summary>
+//		public void Greet()
+//		{
+//				//print the greeting.
+//			Debug.Log("Hail! My name is " + playerName+"!");
+//		}
 
 	/// <summary>
 	/// Attack the specified enemy instance.
