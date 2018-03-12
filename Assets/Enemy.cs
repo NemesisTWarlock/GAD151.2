@@ -35,19 +35,16 @@ public class Enemy {
 	/// </summary>
 	public int enemyGold;	
 
-
-
-
 	/// <summary>
 	/// Default Constructor for the <see cref="Enemy"/> class.
 	/// </summary>
 	public Enemy ()
 	{		
 		enemyName = "Slime";
-		enemyHealth = 10;
-		enemyDamage = 2;
+		enemyHealth = 5;
+		enemyDamage = 5;
 		enemyItem = "Slime Goo";
-		enemyGold = 5;
+		enemyGold = 10;
 	}
 
 	/// <summary>
@@ -61,6 +58,15 @@ public class Enemy {
 		enemyDamage = enemyDamageIN;
 		enemyItem = enemyItemIN;
 		enemyGold = enemyGoldIN;
+	}
+
+	// Copy constructor
+	public Enemy(Enemy enemyIN){
+		enemyName = enemyIN.enemyName;
+		enemyHealth = enemyIN.enemyHealth;
+		enemyDamage = enemyIN.enemyDamage;
+		enemyItem = enemyIN.enemyItem;
+		enemyGold = enemyIN.enemyGold;
 	}
 
 	/// <summary>
@@ -81,6 +87,4 @@ public class Enemy {
 		playerInst.playerHealth = Mathf.Max(0, playerInst.playerHealth - enemyDamage);
 		Debug.Log(enemyName + " Hits " + playerInst.playerName + " for "+ enemyDamage + ", reducing it's health to " + playerInst.playerHealth + "!");
 	}
-
-
 }
