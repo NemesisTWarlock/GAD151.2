@@ -35,7 +35,24 @@ public class Player {
 	/// </summary>
 	public int playerHerbs;
 
+	/// <summary>
+	/// The Player's Max Health. (Hidden)
+	/// </summary>
+	[HideInInspector]
 	public int maxHealth;
+
+	/// <summary>
+	///Number of times the player has Fleed from combat. (Hidden) 
+	/// </summary>
+	[HideInInspector]
+	public int fleeCount;
+
+	/// <summary>
+	/// Number of times the player has defeated an enemy. (Hidden)
+	/// </summary>
+	[HideInInspector]
+	public int killCount;
+
 
 
 

@@ -20,7 +20,13 @@ public class Arena : MonoBehaviour
 	List<Enemy>enemyList = new List<Enemy>();
 
 	//Player Death bool
-	bool playerIsDead = false;
+	[HideInInspector]
+	public bool playerIsDead = false;
+
+	//bools for post-combat step
+	[HideInInspector]
+	public bool defeatedEnemy = false;
+
 
 	//First Combat text
 
@@ -53,25 +59,27 @@ public class Arena : MonoBehaviour
 	void Update()
 	{
 
+
 	//Check Player Input
 
-		//Left CLick
+		//Left CLick to Fight Enemy
 		if(Input.GetMouseButtonDown(0))
 		{
 			Fight(player1, enemyList[0]);
 		}
 
-		//Right CLick
+		//Right CLick to Reset Combat
 		if (Input.GetMouseButtonDown (1)) 
 		{
 			Debug.Log (player1.playerName+" Flees from the combat, to find a better fight.");
+			player1.fleeCount++;
 			//Reset Combat
 			enemyList.Clear();
 			SpawnEnemy ();
 		}
 
 
-		//Shift Key
+		//Shift Key to heal
 		if (Input.GetKeyDown(KeyCode.LeftShift)||Input.GetKeyDown(KeyCode.RightShift)) 
 		{
 		
@@ -86,10 +94,15 @@ public class Arena : MonoBehaviour
 			}
 		}
 
+		//Check wether the player's dead or not
+		CheckHealth(player1);
 
 
-		//Then Check wether the player's dead or not
-		Checkhealth(player1);
+		//If player has defeated an enemy, Do Post Combat Step
+		if(defeatedEnemy == true)
+		{
+			PostCombat (player1, enemyList [0]);
+		}
 
 	}
 
@@ -102,48 +115,23 @@ public class Arena : MonoBehaviour
 				//Combat Step
 				playerInst.Attack (enemyInst);
 
-				//Check if the attack has killed the enemy
-				if (enemyInst.enemyHealth == 0) 
-				{
+			//if Enemy isn't dead, atack them back
+			if (enemyInst.enemyHealth > 0)
+			{
+				enemyInst.Attack (playerInst);
+			}
+		}
 
-				//Loot Step
-
-					//create a temporary item with the enemy's item stats
-					Item tempItem = new Item (enemyInst);
-					//pick up the loot
-					tempItem.GrabLoot (playerInst, enemyInst);
-					//destroy the temporary item
-					tempItem = null;
-					//destroy the enemy object
-					enemyList.Clear ();
-
-				//Shop Step
-
-					//Create a temporary shop 
-					Shop itemShop = new Shop();
-					//Visit the shop
-					itemShop.VisitShop(playerInst);
-					
-
-					if(itemShop.playerLeftShop == true)
-						{
-							//Destroy the Temporary shop
-							itemShop = null;
-
-					//Encounter Step
-
-							//spawn a new enemy
-							SpawnEnemy ();
-						}
-				}
-
-			//if not, attack the player back
-				else 
-				{
-					enemyInst.Attack (playerInst);
-				}
+		//if they have defeated the enemy, toggle the defeatedenemy bool
+		if(enemyInst.enemyHealth == 0)
+		{
+			defeatedEnemy = true;
+			playerInst.killCount++;
 		}
 	}
+
+
+		
 
 
 	/// <summary>
@@ -172,7 +160,7 @@ public class Arena : MonoBehaviour
 	/// Check's the Player's health, and cleanly stops the game when they die.
 	/// </summary>
 	/// <param name="playerInst">Selected Player instance.</param>
-	void Checkhealth(Player playerInst)
+	void CheckHealth(Player playerInst)
 	{   
 		//if the player's dead, jump back to Update(); (which should cleanly loop)
 		if (playerIsDead) return;
@@ -180,13 +168,51 @@ public class Arena : MonoBehaviour
 		//when the player's health hits Zero, declare the player is dead, yo!
 		if (playerInst.playerHealth == 0) 
 		{
-			Debug.Log ("Alas,"+playerInst.playerName+" has Fallen.");
+			Debug.Log ("Alas, "+playerInst.playerName+" has Fallen.");
 			Debug.Log("GAME OVER");
+			Debug.Log ("Final Stats:");
+			Debug.Log ("Number of Enemies Defeated: " + playerInst.killCount);
+			Debug.Log ("Number of times fleed from combat: " + playerInst.fleeCount);
 			playerIsDead = true;
 		}
 		
 	}
 
+	void PostCombat (Player playerInst, Enemy enemyInst)
+	{
+		//Start Post-Combat/Shop step when enemy defeated
+		if (defeatedEnemy == true)
+		{
+			//Loot Step
+
+				//create a temporary item with the enemy's item stats
+				Item tempItem = new Item (enemyInst);
+				//pick up the loot
+				tempItem.GrabLoot (playerInst, enemyInst);
+				//destroy the temporary item
+				tempItem = null;
+				//destroy the enemy object
+				enemyList.Clear ();
+			//Shop Step	
+
+				//Open the shop
+				Shop openShop = new Shop();
+				//Visit the Shop
+				openShop.VisitShop(playerInst);
+
+				//Check if the player has left the shop
+				if(openShop.leftShop==true)
+					{	
+					//Close the Shop
+						openShop= null;
+
+			//Start a new Combat Step
+						defeatedEnemy = false;
+						SpawnEnemy();
+						
+					}
+		}	
+	}
 
 }
 

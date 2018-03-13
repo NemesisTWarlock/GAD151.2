@@ -6,8 +6,8 @@ using UnityEngine;
 /// Controls Shop Functionality.
 /// </summary>
 public class Shop {
+	public bool leftShop = false;
 
-	public bool playerLeftShop = false;
 
 	public void VisitShop(Player playerInst)
 	{
@@ -55,7 +55,7 @@ public class Shop {
 		//Leave Shop
 				if (Input.GetKeyDown(KeyCode.Space))
 		{
-			playerLeftShop = true;
+			leftShop = true;
 			return;
 		}
 	}
