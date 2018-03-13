@@ -16,7 +16,7 @@ public class Player {
 	public string playerName;
 
 	/// <summary>
-	/// The player's Current health.
+	/// The player's health.
 	/// </summary>
 	public int playerHealth;
 
@@ -30,14 +30,6 @@ public class Player {
 	/// </summary>
 	public int playerGold;
 
-	/// <summary>
-	/// How many Healing Herbs the player is carrying.
-	/// </summary>
-	public int playerHerbs;
-
-	public int maxHealth;
-
-
 
 	/// <summary>
 	/// Default Constructor for the <see cref="Player"/>class.
@@ -45,12 +37,17 @@ public class Player {
 	public Player()
 	{
 		playerName = "Erdrick";
-		playerHealth = 100;
+		playerHealth = 50;
 		totalDamage = 5;
 		playerGold = 0;
-		playerHerbs = 5;
 	}
 
+// <summary>Prints a greeting to the Debug Log.(deprecated)</summary>
+//		public void Greet()
+//		{
+//				//print the greeting.
+//			Debug.Log("Hail! My name is " + playerName+"!");
+//		}
 
 	/// <summary>
 	/// Attack the specified enemy instance.
@@ -63,59 +60,6 @@ public class Player {
 		Debug.Log(playerName + " Hits the " + enemyInst.enemyName + " for "+ totalDamage + ", reducing it's health to " + enemyInst.enemyHealth + "!");
 	}
 
-	/// <summary>
-	/// Heals the player by using a Healing Herb when called.
-	/// </summary>
-	public void Heal()
-	{
-		//setup healing range
-		int healAmount = Random.Range (25, 50);
 
-		if (playerHealth == maxHealth)
-		{
-			Debug.Log ("Already at Max health!");
-			return;
-		}
-		else
-		{
-			//heal the player
-			playerHealth = Mathf.Max(healAmount,maxHealth);
-			//remove a herb (YES, "A" HERB THANKYOU VERY MUCH I WILL DIE ON THIS COMMENTED HILL)
-			playerHerbs--;
-			//print text
-			Debug.Log (playerName + " Uses a Healing Herb, healing them for "+ healAmount + "!" );
-			Debug.Log (playerName+"'s HP: "+playerHealth);
-			Debug.Log (playerName + " has " + playerHerbs + " herbs left.");
-		}
-	}
-
-
-	/// <summary>
-	/// Increases the player's damage output when called.
-	/// </summary>
-	public void DamageBoost ()
-	{
-		//setup Damage boost range
-		int dmgBoostAmount = Random.Range (5, 20);
-		//Boost Damage
-		totalDamage += dmgBoostAmount;
-		//Print Text
-		Debug.Log (playerName +" increases their total damage output by " + dmgBoostAmount + " to " + totalDamage + "!");
-
-
-	}
-
-	/// <summary>
-	/// Boosts the player's Maximum health when called. 
-	/// </summary>
-	public void MaxHealthBoost()
-	{
-		//setup HP Boost range
-		int hpBoostAmount = Random.Range (10, 50);
-		//Boost Max HP
-		maxHealth += hpBoostAmount;
-		//Print Text
-		Debug.Log (playerName +" increases their health by " + hpBoostAmount + " to " + maxHealth + "!");
-	}
 
 }

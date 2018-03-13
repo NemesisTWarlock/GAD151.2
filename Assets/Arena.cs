@@ -14,84 +14,31 @@ public class Arena : MonoBehaviour
 	//Create new instances of the player, enemy and item classes
 	public Player player1 = new Player ();
 
-	//A list of enemy stats
-	public Enemy[] enemyStats;
-
 	//Make a List for the enemy
-	List<Enemy>enemyList = new List<Enemy>();
+	public List<Enemy>enemyList = new List<Enemy>();
 
 	//Player Death bool
 	bool playerIsDead = false;
-
-	//First Combat text
-
-
-
-
-
 
 
 	// Use this for initialization
 	void Start () 
 	{
-
-		//Set the player's Max Health
-		player1.maxHealth = player1.playerHealth;
-
-		//Game Start text
-		Debug.Log ("Controls:");
-		Debug.Log ("Left Click: Attack Enemy");
-		Debug.Log ("Right Click: Flee");
-		Debug.Log ("Shift Key: Use a Healing Herb");
-		
-		//Spawn the first Enemy
+		//Spawn the first Enemy.
 		SpawnEnemy ();
-
-
 	}
 
 	//Updates each frame
 	void Update()
 	{
-
-	//Check Player Input
-
-		//Left CLick
+		//When Left mouse button is clicked, Fight opponent
 		if(Input.GetMouseButtonDown(0))
 		{
 			Fight(player1, enemyList[0]);
 		}
 
-		//Right CLick
-		if (Input.GetMouseButtonDown (1)) 
-		{
-			Debug.Log (player1.playerName+" Flees from the combat, to find a better fight.");
-			//Reset Combat
-			enemyList.Clear();
-			SpawnEnemy ();
-		}
-
-
-		//Shift Key
-		if (Input.GetKeyDown(KeyCode.LeftShift)||Input.GetKeyDown(KeyCode.RightShift)) 
-		{
-		
-			if (player1.playerHerbs == 0) 
-			{
-				Debug.Log (player1.playerName + "does not have any Healing Herbs!");
-			} 
-			else 
-			{
-				player1.Heal ();
-
-			}
-		}
-
-
-
 		//Then Check wether the player's dead or not
 		Checkhealth(player1);
-
 	}
 
 
@@ -100,15 +47,11 @@ public class Arena : MonoBehaviour
 		//if the player's health isn't 0, attack the enemy
 		if (playerInst.playerHealth > 0) 
 		{
-				//Combat Step
-				playerInst.Attack (enemyInst);
+			playerInst.Attack (enemyInst);
 
 				//Check if the attack has killed the enemy
 				if (enemyInst.enemyHealth == 0) 
 				{
-
-				//Loot Step
-
 					//create a temporary item with the enemy's item stats
 					Item tempItem = new Item (enemyInst);
 					//pick up the loot
@@ -117,6 +60,7 @@ public class Arena : MonoBehaviour
 					tempItem = null;
 					//destroy the enemy object
 					enemyList.Clear ();
+<<<<<<< HEAD
 
 				//Shop Step
 
@@ -142,6 +86,10 @@ public class Arena : MonoBehaviour
 								//spawn a new enemy
 								SpawnEnemy ();
 						}
+=======
+					//spawn a new one
+					SpawnEnemy ();
+>>>>>>> parent of bf0b388... Implement Shop System
 				}
 
 			//if not, attack the player back
@@ -152,7 +100,6 @@ public class Arena : MonoBehaviour
 		}
 	}
 
-
 	/// <summary>
 	/// Manages enemy instance spawning.
 	/// </summary>
@@ -161,7 +108,7 @@ public class Arena : MonoBehaviour
 		//Sanity check -- If there's zero monsters on the battlefield...
 		if (enemyList.Count == 0) 
 		{
-			enemyList.Add (new Enemy (enemyStats[Random.Range(0, enemyStats.Length)]));
+			enemyList.Add (new Enemy ());
 			enemyList [0].Encounter ();
 		} 
 		else //this *should* Never happen!
@@ -173,7 +120,6 @@ public class Arena : MonoBehaviour
 			SpawnEnemy ();			
 		}
 	}
-
 
 	/// <summary>
 	/// Check's the Player's health, and cleanly stops the game when they die.
@@ -194,6 +140,7 @@ public class Arena : MonoBehaviour
 		
 	}
 
+<<<<<<< HEAD
 
 
 //DEBUG: Shop Visiting
@@ -249,5 +196,7 @@ public void VisitShop(Player playerInst)
 }
 
 
+=======
+>>>>>>> parent of bf0b388... Implement Shop System
 }
 
