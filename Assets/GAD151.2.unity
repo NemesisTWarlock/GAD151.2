@@ -145,14 +145,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player1:
     playerName: Erdrick
-    playerHealth: 50
+    playerHealth: 100
     totalDamage: 5
     playerGold: 0
-  enemy1:
-    enemyName: Slime
+    playerHerbs: 5
+    maxHealth: 0
+  enemyStats:
+  - enemyName: Slime
     enemyHealth: 10
-    enemyDamage: 2
+    enemyDamage: 5
+    enemyItem: Slime Goo
     enemyGold: 5
+  - enemyName: Dracky
+    enemyHealth: 15
+    enemyDamage: 10
+    enemyItem: Dracky Wing
+    enemyGold: 10
+  - enemyName: Skeleton
+    enemyHealth: 25
+    enemyDamage: 15
+    enemyItem: Skeleton Bone
+    enemyGold: 20
+  - enemyName: Mandrake Major
+    enemyHealth: 50
+    enemyDamage: 20
+    enemyItem: Dracky Tail
+    enemyGold: 10
+  - enemyName: Metal Slime
+    enemyHealth: 100
+    enemyDamage: 1
+    enemyItem: Metal Slime Goo
+    enemyGold: 1000
 --- !u!81 &379936701
 AudioListener:
   m_ObjectHideFlags: 0
