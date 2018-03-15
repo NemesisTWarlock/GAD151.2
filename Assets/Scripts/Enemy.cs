@@ -86,7 +86,7 @@ public class Enemy
     public void Attack(Player playerInst)
     {
         //use Mathf.Max to make sure the player's Health doesn't fall below 0	
-        playerInst.playerHealth = Mathf.Max(0, playerInst.playerHealth - enemyDamage);
-        Debug.Log(enemyName + " Hits " + playerInst.playerName + " for " + enemyDamage + " damage, reducing their health to " + playerInst.playerHealth + "!");
+        playerInst.health = Mathf.Max(0, playerInst.health - enemyDamage);
+        Debug.Log(enemyName + " Hits " + playerInst.name + " for " + enemyDamage + " damage, reducing their health to " + playerInst.health + "!");
     }
 }

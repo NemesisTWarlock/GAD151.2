@@ -15,19 +15,21 @@ public class Shop
 
     //Setup Shop Prices
 
-    int herbPrice = 50;
-    int damageBoostPrice = 100;
+    public int herbPrice = 10;
+    public int damageBoostPrice = 200;
+    public int healthBoostPrice = 200;
+
 
 
     public void VisitShop(Player playerInst)
     {
-        
-        
+                
         //Shop Text
         Debug.Log("Welcome to the Shop!");
-        Debug.Log(playerInst.playerName + " has " + playerInst.playerGold + "GP.");
+        Debug.Log(playerInst.name + " has " + playerInst.playerGold + "GP.");
         Debug.Log("Press 1 to purchase a Healing Herb for " + herbPrice + "GP.");
         Debug.Log("Press 2 to Purchase a Damage Boost for " + damageBoostPrice + "GP.");
+        Debug.Log("Press 3 to purcase a Maximum Health boost for " + healthBoostPrice + "GP.");
         Debug.Log("Press SPACE to leave the shop.");
 
     }
@@ -38,13 +40,14 @@ public class Shop
     {
         if (playerInst.playerGold < herbPrice)
         {
+           
             Debug.Log("Not enough GP!");
         }
         else
         {
             playerInst.playerGold -= herbPrice;
             playerInst.playerHerbs++;
-            Debug.Log(playerInst.playerName + " now has " + playerInst.playerHerbs + " Healing Herbs.");
+            Debug.Log(playerInst.name + " now has " + playerInst.playerHerbs + " Healing Herbs.");
         }
     }
 
@@ -58,6 +61,18 @@ public class Shop
         {					
             playerInst.DamageBoost();	
         }	
+    }
+
+    public void BuyMaxhealthBoost(Player playerInst)
+    {
+        if (playerInst.playerGold < healthBoostPrice)
+        {
+            Debug.Log("Not enough GP!");
+        }
+        else
+        {                   
+            playerInst.MaxHealthBoost();   
+        }
     }
 
 

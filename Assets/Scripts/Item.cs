@@ -45,7 +45,7 @@ public class Item
     {
         playerInst.playerGold += itemGold;	
         //print the message.
-        Debug.Log("After a long battle, " + playerInst.playerName + " defeats the " + enemyInst.enemyName + "! It drops a " + itemName + ", worth " + itemGold + " GP.");
+        Debug.Log("After a long battle, " + playerInst.name + " defeats the " + enemyInst.enemyName + "! It drops a " + itemName + ", worth " + itemGold + " GP.");
 
     }
 
