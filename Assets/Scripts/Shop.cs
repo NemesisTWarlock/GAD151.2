@@ -21,6 +21,8 @@ public class Shop
 
     public void VisitShop(Player playerInst)
     {
+        
+        
         //Shop Text
         Debug.Log("Welcome to the Shop!");
         Debug.Log(playerInst.playerName + " has " + playerInst.playerGold + "GP.");
