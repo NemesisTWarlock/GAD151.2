@@ -144,12 +144,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8dfadd038832c148a5282384a1d5bf7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioLibrary:
+  - {fileID: 8300000, guid: 4d3762aebec839b4da59783b4db40120, type: 3}
+  - {fileID: 8300000, guid: e4b6a7f551bc4984d83f0281228a9433, type: 3}
+  - {fileID: 8300000, guid: 6dfa71175d86b6f4eb65928fd84433db, type: 3}
+  - {fileID: 8300000, guid: 4e807a6a1df730c468862256c6309217, type: 3}
+  - {fileID: 8300000, guid: 78215184c25556c498da4a6bfef8ce53, type: 3}
+  - {fileID: 8300000, guid: f98baae5ac6c07042b0e9138e31e9834, type: 3}
+  - {fileID: 8300000, guid: 1f5e746305dfd95479cf82ed3f9b3825, type: 3}
+  - {fileID: 8300000, guid: de41177fb8e7da24f8f403981e91e346, type: 3}
+  - {fileID: 8300000, guid: f2b3cad65afa4344aab789b57fd0c7c3, type: 3}
   player1:
     playerName: Erdrick
     playerHealth: 100
     totalDamage: 5
-    playerGold: 500
-    playerHerbs: 5
+    playerGold: 0
+    playerHerbs: 1
     maxHealth: 0
     fleeCount: 0
     killCount: 0
@@ -160,28 +170,30 @@ MonoBehaviour:
     enemyItem: Slime Goo
     enemyGold: 5
   - enemyName: Dracky
-    enemyHealth: 15
-    enemyDamage: 10
+    enemyHealth: 20
+    enemyDamage: 5
     enemyItem: Dracky Wing
     enemyGold: 10
   - enemyName: Skeleton
     enemyHealth: 25
     enemyDamage: 15
     enemyItem: Skeleton Bone
-    enemyGold: 20
+    enemyGold: 50
   - enemyName: Mandrake Major
-    enemyHealth: 50
-    enemyDamage: 20
-    enemyItem: Dracky Tail
-    enemyGold: 10
-  - enemyName: Metal Slime
     enemyHealth: 100
+    enemyDamage: 20
+    enemyItem: Dragon Armor
+    enemyGold: 100
+  - enemyName: Metal Slime
+    enemyHealth: 1000
     enemyDamage: 1
     enemyItem: Metal Slime Goo
     enemyGold: 1000
   playerIsDead: 0
   defeatedEnemy: 0
   gameStart: 0
+  isMusicChanging: 0
+  BGM: {fileID: 379936705}
 --- !u!81 &379936701
 AudioListener:
   m_ObjectHideFlags: 0
@@ -245,123 +257,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &379936705
-MonoBehaviour:
+--- !u!82 &379936705
+AudioSource:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 379936699}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c4b9713432b67da42a3c8472be418273, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  BGM: {fileID: 0}
-  audioLibrary:
-  - {fileID: 8300000, guid: d8810584c2e5e514e903a47cb5518f63, type: 3}
-  - {fileID: 8300000, guid: 93fcdc66275345047bcd7ed137ee6de1, type: 3}
-  - {fileID: 8300000, guid: 7e716ad186f2d624db5b9e5600a2c1d5, type: 3}
-  - {fileID: 8300000, guid: 31dc37abbcd58414db66ed8f7f516eda, type: 3}
-  - {fileID: 8300000, guid: fc5098ecb3bb7ca419633a440ccb5827, type: 3}
-  - {fileID: 8300000, guid: 05d595acef7d6d74995b7260ed680674, type: 3}
-  - {fileID: 8300000, guid: 5bd7add902e380140b3537d529309bf0, type: 3}
-  - {fileID: 8300000, guid: 80d4bfac246fcef48848ee38e30ecce9, type: 3}
-  - {fileID: 8300000, guid: 8ac4b6eb5fef97d4f9bbc74bd3bef3a1, type: 3}
---- !u!1 &549571339
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 549571341}
-  - component: {fileID: 549571340}
-  m_Layer: 0
-  m_Name: Directional Light
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!108 &549571340
-Light:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 549571339}
-  m_Enabled: 1
-  serializedVersion: 8
-  m_Type: 1
-  m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
-  m_Intensity: 1
-  m_Range: 10
-  m_SpotAngle: 30
-  m_CookieSize: 10
-  m_Shadows:
-    m_Type: 2
-    m_Resolution: -1
-    m_CustomResolution: -1
-    m_Strength: 1
-    m_Bias: 0.05
-    m_NormalBias: 0.4
-    m_NearPlane: 0.2
-  m_Cookie: {fileID: 0}
-  m_DrawHalo: 0
-  m_Flare: {fileID: 0}
-  m_RenderMode: 0
-  m_CullingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_Lightmapping: 4
-  m_AreaSize: {x: 1, y: 1}
-  m_BounceIntensity: 1
-  m_ColorTemperature: 6570
-  m_UseColorTemperature: 0
-  m_ShadowRadius: 0
-  m_ShadowAngle: 0
---- !u!4 &549571341
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 549571339}
-  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
-  m_LocalPosition: {x: 0, y: 3, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
---- !u!1 &1207242660
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 1207242662}
-  - component: {fileID: 1207242661}
-  m_Layer: 0
-  m_Name: Audio Source
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!82 &1207242661
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1207242660}
-  m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: d8810584c2e5e514e903a47cb5518f63, type: 3}
-  m_PlayOnAwake: 0
+  m_audioClip: {fileID: 8300000, guid: 4d3762aebec839b4da59783b4db40120, type: 3}
+  m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -428,16 +337,68 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
---- !u!4 &1207242662
+--- !u!1 &549571339
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 549571341}
+  - component: {fileID: 549571340}
+  m_Layer: 0
+  m_Name: Directional Light
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!108 &549571340
+Light:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 549571339}
+  m_Enabled: 1
+  serializedVersion: 8
+  m_Type: 1
+  m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
+  m_Intensity: 1
+  m_Range: 10
+  m_SpotAngle: 30
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 2
+    m_Resolution: -1
+    m_CustomResolution: -1
+    m_Strength: 1
+    m_Bias: 0.05
+    m_NormalBias: 0.4
+    m_NearPlane: 0.2
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_Lightmapping: 4
+  m_AreaSize: {x: 1, y: 1}
+  m_BounceIntensity: 1
+  m_ColorTemperature: 6570
+  m_UseColorTemperature: 0
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
+--- !u!4 &549571341
 Transform:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1207242660}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_GameObject: {fileID: 549571339}
+  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
+  m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}

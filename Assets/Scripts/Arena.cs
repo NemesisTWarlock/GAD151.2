@@ -20,6 +20,7 @@ public class Arena : MonoBehaviour
     public Player player1 = new Player();
 
     //A list of enemy stats
+    [HideInInspector]
     public Enemy[] enemyStats;
 
     //Make a List for the enemy
@@ -37,12 +38,15 @@ public class Arena : MonoBehaviour
     [HideInInspector]
     public bool gameStart = false;
 
+
     //Music change bool
+    [HideInInspector]
     public bool isMusicChanging = false;
 
     //Open the Shop
     Shop openShop = new Shop();
 
+    [HideInInspector]
     public AudioSource BGM;
 
 
@@ -111,6 +115,9 @@ public class Arena : MonoBehaviour
                 //Right CLick to Reset Combat
                 if (Input.GetMouseButtonDown(1)&& !playerIsDead)
                 {
+                    //play SFX
+                    BGM.PlayOneShot(audioLibrary[8]);
+
                     Debug.Log(player1.playerName + " Flees from the combat, to find a better fight.");
                     player1.fleeCount++;
                     //Reset Combat
@@ -129,6 +136,7 @@ public class Arena : MonoBehaviour
                 }
                 else
                 {
+                    BGM.PlayOneShot(audioLibrary[6]);
                     player1.Heal();
                 }
             }
@@ -136,12 +144,14 @@ public class Arena : MonoBehaviour
             //Healing Herb Purchase
             if (Input.GetKeyDown(KeyCode.Alpha1) && openShop.leftShop == false || Input.GetKeyDown(KeyCode.Keypad1) && openShop.leftShop == false)
             {
+                BGM.PlayOneShot(audioLibrary[7]);
                 openShop.BuyHerb(player1);
             }
             
             //Damage Boost Purchase
             if (Input.GetKeyDown(KeyCode.Alpha2) && openShop.leftShop == false || Input.GetKeyDown(KeyCode.Keypad2) && openShop.leftShop == false)
             {
+                BGM.PlayOneShot(audioLibrary[7]);
                 openShop.BuyDamageBoost(player1);
             }
             
@@ -160,6 +170,8 @@ public class Arena : MonoBehaviour
             //If player has defeated an enemy, Do Post Combat Step
             if (defeatedEnemy == true)
             {
+                //Play SFX
+                BGM.PlayOneShot(audioLibrary[2]);
                 PostCombat(player1, enemyList[0]);
             }
         }
@@ -172,6 +184,7 @@ public class Arena : MonoBehaviour
         //if the player's health isn't 0, attack the enemy
         if (playerInst.playerHealth > 0)
         {
+
             //Combat Step
             playerInst.Attack(enemyInst);
 
@@ -185,6 +198,7 @@ public class Arena : MonoBehaviour
         //if they have defeated the enemy, toggle the defeatedenemy bool
         if (enemyInst.enemyHealth == 0)
         {
+            
             defeatedEnemy = true;
             playerInst.killCount++;
         }
@@ -229,6 +243,11 @@ public class Arena : MonoBehaviour
         //when the player's health hits Zero, declare the player is dead, yo!
         if (playerInst.playerHealth == 0)
         {
+            //Death Music
+            isMusicChanging = true;
+            ChangeBGM(audioLibrary[4]);
+
+            //Death Text
             Debug.Log("Alas, " + playerInst.playerName + " has Fallen.");
             Debug.Log("GAME OVER");
             Debug.Log("Final Stats:");
