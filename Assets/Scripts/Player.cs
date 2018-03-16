@@ -29,12 +29,12 @@ public class Player
     /// <summary>
     /// The total Gold the player is carrying.
     /// </summary>
-    public int playerGold;
+    public int gold;
 
     /// <summary>
     /// How many Healing Herbs the player is carrying.
     /// </summary>
-    public int playerHerbs;
+    public int herbs;
 
     /// <summary>
     /// The Player's Max Health. (Hidden)
@@ -58,15 +58,15 @@ public class Player
 
 
     /// <summary>
-    /// Default Constructor for the <see cref="Player"/>class.
+    /// Default Constructor for Player objects.
     /// </summary>
     public Player()
     {
         name = "Erdrick";
         health = 100;
         damage = 5;
-        playerGold = 0;
-        playerHerbs = 5;
+        gold = 0;
+        herbs = 2;
     }
 
 
@@ -76,9 +76,9 @@ public class Player
     /// <param name="enemyInst">Enemy instance.</param>
     public void Attack(Enemy enemyInst)
     {	
-        //use Mathf.Max to make sure the enemy Health doesn't fall below 0	
-        enemyInst.enemyHealth = Mathf.Max(0, enemyInst.enemyHealth - damage);
-        Debug.Log(name + " Hits the " + enemyInst.enemyName + " for " + damage + " damage, reducing it's health to " + enemyInst.enemyHealth + "!");
+        //subtract weapon damage from enemy health (use Mathf.Max to make sure the enemy Health doesn't fall below 0)	
+        enemyInst.health = Mathf.Max(0, enemyInst.health - damage);
+        Debug.Log(name + " Hits the " + enemyInst.name + " for " + damage + " damage, reducing it's health to " + enemyInst.health + "!");
     }
 
     /// <summary>
@@ -89,6 +89,7 @@ public class Player
         //setup healing range
         int healAmount = Random.Range(25, 50);
 
+        //if already at max health...
         if (health == maxHealth)
         {
             Debug.Log("Already at Max health!");
@@ -99,11 +100,11 @@ public class Player
             //heal the player
             health = Mathf.Max(healAmount, maxHealth);
             //remove a herb (YES, "A" HERB THANKYOU VERY MUCH I WILL DIE ON THIS COMMENTED HILL)
-            playerHerbs--;
+            herbs--;
             //print text
             Debug.Log(name + " Uses a Healing Herb, healing them for " + healAmount + "!");
             Debug.Log(name + "'s HP: " + health);
-            Debug.Log(name + " has " + playerHerbs + " herbs left.");
+            Debug.Log(name + " has " + herbs + " herbs left.");
         }
     }
 

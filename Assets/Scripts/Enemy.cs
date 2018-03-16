@@ -14,61 +14,61 @@ public class Enemy
     /// <summary>
     /// The Enemy's name.
     /// </summary>
-    public string enemyName;
+    public string name;
 
     /// <summary>
     /// The Enemy's Current health.
     /// </summary>
-    public int enemyHealth;
+    public int health;
 
     /// <summary>
     /// The Enemy's total Damage output.
     /// </summary>
-    public int enemyDamage;
+    public int damage;
 
     /// <summary>
     /// The name of the item the Enemy is Carrying.
     /// </summary>
-    public string enemyItem;
+    public string item;
 
     /// <summary>
     /// The amount of GP the enemy is carrying.
     /// </summary>
-    public int enemyGold;
+    public int gold;
 
     /// <summary>
     /// Default Constructor for the <see cref="Enemy"/> class.
     /// </summary>
     public Enemy()
     {		
-        enemyName = "Slime";
-        enemyHealth = 5;
-        enemyDamage = 5;
-        enemyItem = "Slime Goo";
-        enemyGold = 10;
+        name = "Slime";
+        health = 5;
+        damage = 5;
+        item = "Slime Goo";
+        gold = 10;
     }
 
     /// <summary>
     /// Custom constructor for the <see cref="Enemy"/> class.
     /// </summary>
-    public Enemy(string enemyNameIN, int enemyHealthIN, int enemyDamageIN, string enemyItemIN, int enemyGoldIN)
+    public Enemy(string nameIN, int healthIN, int damageIN, string itemIN, int goldIN)
     {		
         //set custom attributes
-        enemyName = enemyNameIN;
-        enemyHealth = enemyHealthIN;
-        enemyDamage = enemyDamageIN;
-        enemyItem = enemyItemIN;
-        enemyGold = enemyGoldIN;
+        name = nameIN;
+        health = healthIN;
+        damage = damageIN;
+        item = itemIN;
+        gold = goldIN;
     }
 
     // Copy constructor
     public Enemy(Enemy enemyIN)
     {
-        enemyName = enemyIN.enemyName;
-        enemyHealth = enemyIN.enemyHealth;
-        enemyDamage = enemyIN.enemyDamage;
-        enemyItem = enemyIN.enemyItem;
-        enemyGold = enemyIN.enemyGold;
+        name = enemyIN.name;
+        health = enemyIN.health;
+        damage = enemyIN.damage;
+        item = enemyIN.item;
+        gold = enemyIN.gold;
     }
 
     /// <summary>
@@ -76,7 +76,7 @@ public class Enemy
     /// </summary>
     public void Encounter()
     {
-        Debug.Log("A " + enemyName + " draws near!");
+        Debug.Log("A " + name + " draws near!");
     }
 
     /// <summary>
@@ -86,7 +86,7 @@ public class Enemy
     public void Attack(Player playerInst)
     {
         //use Mathf.Max to make sure the player's Health doesn't fall below 0	
-        playerInst.health = Mathf.Max(0, playerInst.health - enemyDamage);
-        Debug.Log(enemyName + " Hits " + playerInst.name + " for " + enemyDamage + " damage, reducing their health to " + playerInst.health + "!");
+        playerInst.health = Mathf.Max(0, playerInst.health - damage);
+        Debug.Log(name + " Hits " + playerInst.name + " for " + damage + " damage, reducing their health to " + playerInst.health + "!");
     }
 }

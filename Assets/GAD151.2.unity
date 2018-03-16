@@ -125,7 +125,6 @@ GameObject:
   - component: {fileID: 379936702}
   - component: {fileID: 379936701}
   - component: {fileID: 379936700}
-  - component: {fileID: 379936706}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -144,57 +143,57 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8dfadd038832c148a5282384a1d5bf7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerIsDead: 0
+  defeatedEnemy: 0
+  gameStart: 0
+  isMusicChanging: 0
+  BGM: {fileID: 715925757}
+  SFX: {fileID: 2096532480}
   audioLibrary:
   - {fileID: 8300000, guid: 4d3762aebec839b4da59783b4db40120, type: 3}
   - {fileID: 8300000, guid: e4b6a7f551bc4984d83f0281228a9433, type: 3}
-  - {fileID: 8300000, guid: 6dfa71175d86b6f4eb65928fd84433db, type: 3}
   - {fileID: 8300000, guid: 4e807a6a1df730c468862256c6309217, type: 3}
   - {fileID: 8300000, guid: 78215184c25556c498da4a6bfef8ce53, type: 3}
   - {fileID: 8300000, guid: f98baae5ac6c07042b0e9138e31e9834, type: 3}
   - {fileID: 8300000, guid: 1f5e746305dfd95479cf82ed3f9b3825, type: 3}
   - {fileID: 8300000, guid: de41177fb8e7da24f8f403981e91e346, type: 3}
   - {fileID: 8300000, guid: f2b3cad65afa4344aab789b57fd0c7c3, type: 3}
+  - {fileID: 8300000, guid: b5716b25cc8d1cf4492b31c81e67110f, type: 3}
+  enemyStats:
+  - name: Slime
+    health: 5
+    damage: 5
+    item: Slime Goo
+    gold: 10
+  - name: Dracky
+    health: 20
+    damage: 5
+    item: Dracky Wing
+    gold: 20
+  - name: Skeleton
+    health: 50
+    damage: 10
+    item: Skeleton Bone
+    gold: 25
+  - name: Mandrake Major
+    health: 100
+    damage: 15
+    item: Mandrake Armor
+    gold: 50
+  - name: Metal Slime
+    health: 1000
+    damage: 1
+    item: Metal Slime Goo
+    gold: 1000
   player1:
-    playerName: Erdrick
-    playerHealth: 100
-    totalDamage: 5
-    playerGold: 0
-    playerHerbs: 1
+    name: Erdrick
+    health: 100
+    damage: 5
+    gold: 0
+    herbs: 2
     maxHealth: 0
     fleeCount: 0
     killCount: 0
-  enemyStats:
-  - enemyName: Slime
-    enemyHealth: 10
-    enemyDamage: 5
-    enemyItem: Slime Goo
-    enemyGold: 5
-  - enemyName: Dracky
-    enemyHealth: 20
-    enemyDamage: 5
-    enemyItem: Dracky Wing
-    enemyGold: 10
-  - enemyName: Skeleton
-    enemyHealth: 25
-    enemyDamage: 15
-    enemyItem: Skeleton Bone
-    enemyGold: 50
-  - enemyName: Mandrake Major
-    enemyHealth: 100
-    enemyDamage: 20
-    enemyItem: Dragon Armor
-    enemyGold: 100
-  - enemyName: Metal Slime
-    enemyHealth: 1000
-    enemyDamage: 1
-    enemyItem: Metal Slime Goo
-    enemyGold: 1000
-  playerIsDead: 0
-  defeatedEnemy: 0
-  gameStart: 0
-  isMusicChanging: 0
-  BGM: {fileID: 379936706}
-  SFX: {fileID: 0}
 --- !u!81 &379936701
 AudioListener:
   m_ObjectHideFlags: 0
@@ -238,8 +237,8 @@ Camera:
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
-  m_HDR: 1
-  m_AllowMSAA: 1
+  m_HDR: 0
+  m_AllowMSAA: 0
   m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
@@ -258,86 +257,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!82 &379936706
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 379936699}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: f2b3cad65afa4344aab789b57fd0c7c3, type: 3}
-  m_PlayOnAwake: 0
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 2
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    - serializedVersion: 2
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 2
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 0
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 2
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 2
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 0
 --- !u!1 &549571339
 GameObject:
   m_ObjectHideFlags: 0
@@ -403,6 +322,115 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &715925756
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 715925758}
+  - component: {fileID: 715925757}
+  m_Layer: 0
+  m_Name: Music
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!82 &715925757
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 715925756}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+--- !u!4 &715925758
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 715925756}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.20993471, y: -0.21379519, z: -0.05296707}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2096532479
 GameObject:
   m_ObjectHideFlags: 0
@@ -486,7 +514,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
