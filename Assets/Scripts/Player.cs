@@ -25,6 +25,9 @@ public class Player
     /// The total damage.
     /// </summary>
     public int damage;
+    public int level;
+
+    public int experience;
 
     /// <summary>
     /// The total Gold the player is carrying.
@@ -65,15 +68,18 @@ public class Player
         damage = 5;
         gold = 0;
         herbs = 2;
+        level = 1;
+        experience = 0;
     }
 
 
     /// <summary>
-    /// Attack the specified enemy instance.
+    /// Perform Damage Calculation and Print Combat Text to the battle Log.
     /// </summary>
-    /// <param name="enemyInst">Enemy instance.</param>
+    /// <param name="enemyInst">Enemy Instance</param>
+    /// <param name="battleLog">Battle Log</param>
     public void Attack(Enemy enemyInst, BattleLogController battleLog)
-    {	
+    {
         //subtract weapon damage from enemy health (use Mathf.Max to make sure the enemy Health doesn't fall below 0)	
         enemyInst.health = Mathf.Max(0, enemyInst.health - damage);
         //Update the UI
@@ -82,8 +88,9 @@ public class Player
     }
 
     /// <summary>
-    /// Heals the player by using a Healing Herb when called.
+    /// Heals the player, and prints to the Battle Log.
     /// </summary>
+    /// <param name="battleLog">Battle Log</param>
     public void Heal(BattleLogController battleLog)
     {
         //setup healing range
@@ -103,7 +110,7 @@ public class Player
             herbs--;
 
 
-          
+
             //print text
             battleLog.AddText(name + " Uses a Healing Herb, healing them for " + healAmount + "!");
             battleLog.AddText(name + " has " + herbs + " herbs left.");
@@ -138,6 +145,7 @@ public class Player
         //Print Text
         battleLog.AddText(name + " increases their health by " + hpBoostAmount + " to " + maxHealth + "!");
     }
+
 
 
 }

@@ -11,7 +11,7 @@ using UnityEngine.UI;
 /// </summary>
 public class Enemy
 {
-    
+
     /// <summary>
     /// The Enemy's name.
     /// </summary>
@@ -59,7 +59,7 @@ public class Enemy
     /// Custom constructor for the <see cref="Enemy"/> class.
     /// </summary>
     public Enemy(string nameIN, int healthIN, int damageIN, string itemIN, int goldIN, Sprite spriteIN, int expIN)
-    {		
+    {
         //set custom attributes
         name = nameIN;
         health = healthIN;

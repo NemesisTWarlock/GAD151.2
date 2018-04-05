@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BattleLogController : MonoBehaviour {
+public class BattleLogController : MonoBehaviour
+{
 
 
     /// <summary>
@@ -40,7 +41,7 @@ public class BattleLogController : MonoBehaviour {
 
             //Destroy it and remove it from the list
             Destroy(tempItem.gameObject);
-            battleLogItems.Remove(tempItem);            
+            battleLogItems.Remove(tempItem);
         }
 
         //instantiate the object

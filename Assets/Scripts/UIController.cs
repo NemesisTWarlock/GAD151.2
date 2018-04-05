@@ -15,6 +15,8 @@ public class UIController : MonoBehaviour
     Text playerNameText;
     Text playerHPText;
     Text playerGPText;
+    Text playerLevelText;
+    Text playerXPText;
 
     //Declare the Enemy Text Fields
     Text enemyNameText;
@@ -23,13 +25,21 @@ public class UIController : MonoBehaviour
     //Declare the Monster Sprite
     Image enemySprite;
 
+    //declare the Shop and Command UI Objects
+    GameObject commandUI;
+    GameObject shopUI;
+
     // Use this for initialization
     void Start()
-    {   
-        //Get the UI Text components
+    {
+        //Get the Player's Text Components
         playerNameText = GameObject.Find("PlayerNameText").GetComponent<Text>();
         playerHPText = GameObject.Find("HPText").GetComponent<Text>();
         playerGPText = GameObject.Find("GPText").GetComponent<Text>();
+        playerLevelText = GameObject.Find("LevelText").GetComponent<Text>();
+        playerXPText = GameObject.Find("XPNum").GetComponent<Text>();
+
+        //get the Enemies' Text Components
         enemyNameText = GameObject.Find("EnemyName").GetComponent<Text>();
         enemyHPText = GameObject.Find("EnemyHP").GetComponent<Text>();
 
@@ -39,10 +49,15 @@ public class UIController : MonoBehaviour
         enemySprite = GameObject.Find("EnemySprite").GetComponent<Image>();
 
         //Set the Initial Values
-        playerNameText.text = player.name.ToString(); 
+        playerNameText.text = player.name.ToString();
         playerHPText.text = "HP: " + player.health.ToString();
         playerGPText.text = "GP: " + player.gold.ToString();
         enemySprite.sprite = Resources.Load<Sprite>("Characters/Slime");
+
+        //Get the Command and Shop UI objects
+        commandUI = GameObject.Find("CommandUI");
+        shopUI = GameObject.Find("ShopUI");
+
     }
 
 
@@ -66,12 +81,32 @@ public class UIController : MonoBehaviour
         playerGPText.text = "GP: " + playerInst.gold.ToString();
     }
 
+    public void UpdatePlayerXP(Player playerInst)
+    {
+        playerXPText.text = "XP: " + playerInst.experience.ToString();
+    }
 
-	
-    //Enemy UI functions
-    
+    public void UpdatePlayerLevel(Player playerInst)
+    {
+        playerLevelText.text = "Lv." + playerInst.level.ToString();
+    }
+
     /// <summary>
-    /// Updates the monster sprite.
+    /// Updates all Player UI Elements at once.
+    /// </summary>
+    /// <param name="playerInst">The Player instance.</param>
+    public void UpdatePlayer(Player playerInst)
+    {
+        UpdatePlayerGP(playerInst);
+        UpdatePlayerHP(playerInst);
+        UpdatePlayerLevel(playerInst);
+        UpdatePlayerXP(playerInst);
+    }
+
+    //Enemy UI functions
+
+    /// <summary>
+    /// Updates the enemy sprite.
     /// </summary>
     /// <param name="enemyInst">Enemy instance.</param>
     public void UpdateEnemySprite(Enemy enemyInst)
@@ -81,17 +116,46 @@ public class UIController : MonoBehaviour
 
 
     }
-
+    /// <summary>
+    /// Updates the enemy Name UI element.
+    /// </summary>
+    /// <param name="enemyInst">Enemy Instance.</param>
     public void UpdateEnemyName(Enemy enemyInst)
     {
         enemyNameText.text = enemyInst.name;
     }
-
+    /// <summary>
+    /// Updates the Enemy HP UI Element.
+    /// </summary>
+    /// <param name="enemyInst">Enemy Instance.</param>
     public void UpdateEnemyHP(Enemy enemyInst)
     {
         enemyHPText.text = "HP: " + enemyInst.health.ToString();
     }
 
+    /// <summary>
+    /// Updates all Enemy UI Elements at once.
+    /// </summary>
+    /// <param name="enemyInst">Enemy Isntance.</param>
+    public void UpdateEnemy(Enemy enemyInst)
+    {
+        UpdateEnemyName(enemyInst);
+        UpdateEnemyHP(enemyInst);
+        UpdateEnemySprite(enemyInst);
+    }
 
+    public void ToggleShopUI(Shop shop)
+    {
+        if (shop.inCombat)
+        {
+            shopUI.SetActive(false);
+            commandUI.SetActive(true);
+        }
+        else if (!shop.inCombat)
+        {
+            shopUI.SetActive(true);
+            commandUI.SetActive(false);
+        }
+    }
 
 }

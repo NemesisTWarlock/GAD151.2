@@ -44,12 +44,13 @@ public class Item
     /// </summary>
     /// <param name="playerInst">Player instance.</param>
     /// <param name="enemyInst">Enemy instance.</param>
-    public void GrabLoot(Player playerInst, Enemy enemyInst)
+    public void GrabLoot(Player playerInst, Enemy enemyInst, BattleLogController battleLog)
     {
         //add the item's gold value to the player's
         playerInst.gold += gold;	
         //print the message.
-        Debug.Log("After a long battle, " + playerInst.name + " defeats the " + enemyInst.name + "! It drops a " + name + ", worth " + gold + " GP.");
+        battleLog.AddText("Victory!");
+        battleLog.AddText("The " + enemyInst.name + " drops a " + name + ", worth " + gold + " GP.");
 
     }
 

@@ -9,7 +9,7 @@ using UnityEngine;
 /// </summary>
 public class Shop
 {
-    
+
 
     //Declare shop bool
     public bool inCombat;
@@ -26,7 +26,7 @@ public class Shop
     /// <param name="playerInst">Player instance.</param>
     public void VisitShop(Player playerInst, BattleLogController battleLog)
     {
-                
+
         //Shop Text
         battleLog.AddText(playerInst.name + " Enters the Shop.");
     }
@@ -41,7 +41,7 @@ public class Shop
         //if the player doesn't have enough GP...
         if (playerInst.gold < herbPrice)
         {
-           
+
             battleLog.AddText("Not enough GP!");
         }
         else
@@ -56,46 +56,49 @@ public class Shop
         }
     }
 
-    /// <summary>
-    /// Purchases a Damage booster.
-    /// </summary>
-    /// <param name="playerInst">Player instance.</param>
-    public void BuyDamageBoost(Player playerInst, BattleLogController battleLog)
-    {
-        //if the player doesn't have enough GP...
-        if (playerInst.gold < damageBoostPrice)
-        {
-            battleLog.AddText("Not enough GP!");
-        }
-        else
-            
-        {	             
-            //pay the cost of the item
-            playerInst.gold -= damageBoostPrice;	
-            //boost the player's damage
-            playerInst.DamageBoost(battleLog);	
-        }	
-    }
+    //DEPRECATED
 
-    /// <summary>
-    /// Purchases a Maximum HP booster.
-    /// </summary>
-    /// <param name="playerInst">Player instance.</param>
-    public void BuyMaxhealthBoost(Player playerInst, BattleLogController battleLog)
-    {
-        //if they don't have enough GP...
-        if (playerInst.gold < healthBoostPrice)
-        {
-            battleLog.AddText("Not enough GP!");
-        }
-        else
-        {   
-            //pay the cost itf the item
-            playerInst.gold -= healthBoostPrice;
-            //boost the player's max health
-            playerInst.MaxHealthBoost(battleLog);   
-        }
-    }
+    // /// <summary>
+    // /// Purchases a Damage booster.
+    // /// </summary>
+    // /// <param name="playerInst">Player instance.</param>
+    // public void BuyDamageBoost(Player playerInst, BattleLogController battleLog)
+    // {
+    //     //if the player doesn't have enough GP...
+    //     if (playerInst.gold < damageBoostPrice)
+    //     {
+    //         battleLog.AddText("Not enough GP!");
+    //     }
+    //     else
+
+    //     {
+    //         //pay the cost of the item
+    //         playerInst.gold -= damageBoostPrice;
+    //         //boost the player's damage
+    //         playerInst.DamageBoost(battleLog);
+    //     }
+    // }
+
+    //DEPRECATED
+    // /// <summary>
+    // /// Purchases a Maximum HP booster.
+    // /// </summary>
+    // /// <param name="playerInst">Player instance.</param>
+    // public void BuyMaxhealthBoost(Player playerInst, BattleLogController battleLog)
+    // {
+    //     //if they don't have enough GP...
+    //     if (playerInst.gold < healthBoostPrice)
+    //     {
+    //         battleLog.AddText("Not enough GP!");
+    //     }
+    //     else
+    //     {
+    //         //pay the cost itf the item
+    //         playerInst.gold -= healthBoostPrice;
+    //         //boost the player's max health
+    //         playerInst.MaxHealthBoost(battleLog);
+    //     }
+    // }
 
 
 }
