@@ -29,6 +29,10 @@ public class UIController : MonoBehaviour
     GameObject commandUI;
     GameObject shopUI;
 
+    //Declare the Game Over Screen
+    [HideInInspector]
+    public GameObject gameOverUI;
+
     // Use this for initialization
     void Start()
     {
@@ -52,11 +56,15 @@ public class UIController : MonoBehaviour
         playerNameText.text = player.name.ToString();
         playerHPText.text = "HP: " + player.health.ToString();
         playerGPText.text = "GP: " + player.gold.ToString();
-        enemySprite.sprite = Resources.Load<Sprite>("Characters/Slime");
+        //enemySprite.sprite = Resources.Load<Sprite>("Characters/Slime");
+        enemySprite.enabled = false;
 
         //Get the Command and Shop UI objects
         commandUI = GameObject.Find("CommandUI");
         shopUI = GameObject.Find("ShopUI");
+        gameOverUI = GameObject.Find("GameOverBox");
+
+        
 
     }
 
@@ -144,7 +152,7 @@ public class UIController : MonoBehaviour
         UpdateEnemySprite(enemyInst);
     }
 
-    public void ToggleShopUI(Shop shop)
+    public void ToggleShopUI(Shop shop, Arena arena)
     {
         if (shop.inCombat)
         {
@@ -156,6 +164,24 @@ public class UIController : MonoBehaviour
             shopUI.SetActive(true);
             commandUI.SetActive(false);
         }
+        else if(arena.playerIsDead)
+        {
+            shopUI.SetActive(false);
+            commandUI.SetActive(false);
+        }
     }
 
+    public void ToggleGameOverScreen()
+    {
+        gameOverUI.SetActive(true);        
+    }
+
+    public void ToggleSprite()
+    {
+        if(enemySprite.enabled == true)
+        {
+        enemySprite.enabled = false;
+        }
+        else enemySprite.enabled = true;
+    }
 }

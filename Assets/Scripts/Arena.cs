@@ -111,12 +111,18 @@ public class Arena : MonoBehaviour
     /// </summary>
     void Update()
     {
-        //Spawn the first Enemy
+        //Basically, Start(), but for UI Elements, since they don't like the normal start() Function for some reason.
         if (!gameStart)
         {
-            UI.ToggleShopUI(openShop);
-            UI.UpdatePlayer(player);            
+            //Disable the Game over UI Object
+            UI.gameOverUI.SetActive(false);
+            //Toggle the Combat UI
+            UI.ToggleShopUI(openShop, this);
+            //Update the player's stats
+            UI.UpdatePlayer(player);
+            //Spawn the first enemy         
             SpawnEnemy();
+            //Make this run only once
             gameStart = true;
         }
         //While In Combat...
@@ -146,11 +152,7 @@ public class Arena : MonoBehaviour
             ScreenCapture.CaptureScreenshot("Screenshot.png");
         }
 
-        //DEBUG: Level Up when player hits the Right Shift key
-        if (Input.GetKeyDown(KeyCode.RightShift))
-        {
-            LevelUp(player);
-        }
+
     }
 
     /// <summary>
@@ -208,7 +210,7 @@ public class Arena : MonoBehaviour
                 //if the player's out of herbs, tell them as much
                 if (player.herbs == 0)
                 {
-                    battleLog.AddText(player.name + "is out of Healing Herbs!");
+                    battleLog.AddText(player.name + " is out of Healing Herbs!");
                 }
 
                 //if the player's already at max health play the buzzer sound
@@ -225,10 +227,7 @@ public class Arena : MonoBehaviour
                 }
             }
         }
-        else
-        {
-            //Do nothing!
-        }
+
     }
     /// <summary>
     /// (ButtonClick) Flee From Combat when clicked.
@@ -270,14 +269,14 @@ public class Arena : MonoBehaviour
             if (player.gold < openShop.herbPrice)
             {
                 SFX.PlayOneShot(audioLibrary[8]);
-                openShop.BuyHerb(player, battleLog);
+                openShop.BuyHerb(player, battleLog, UI);
 
             }
             //otherwise, play the item purchase sound
             else
             {
                 SFX.PlayOneShot(audioLibrary[6]);
-                openShop.BuyHerb(player, battleLog);
+                openShop.BuyHerb(player, battleLog, UI);
             }
         }
     }
@@ -296,6 +295,7 @@ public class Arena : MonoBehaviour
             //pick a monster from the random encounter table at random, then add it to the currentEnemy list
             currentEnemy.Add(new Enemy(enemyStats[Random.Range(0, enemyStats.Length)]));
             // updates the Enemy UI with the New Data
+            UI.ToggleSprite();
             UI.UpdateEnemy(currentEnemy[0]);
 
             //Run the currentEnemy's Encounter function
@@ -337,6 +337,7 @@ public class Arena : MonoBehaviour
             battleLog.AddText("Number of Enemies Defeated: " + playerInst.killCount);
             battleLog.AddText("Number of times fleed from combat: " + playerInst.fleeCount);
             playerIsDead = true;
+            UI.ToggleGameOverScreen();
         }
 
     }
@@ -369,8 +370,9 @@ public class Arena : MonoBehaviour
             ChangeBGM(audioLibrary[2]);
             //Start the Shop Gamestate
             openShop.inCombat = false;
+            UI.ToggleSprite();
             //Visit the Shop
-            UI.ToggleShopUI(openShop);
+            UI.ToggleShopUI(openShop, this);
             openShop.VisitShop(playerInst, battleLog);
             defeatedEnemy = false;
 
@@ -389,8 +391,8 @@ public class Arena : MonoBehaviour
         defeatedEnemy = false;
         //leave the shop      
         openShop.inCombat = true;
-        UI.ToggleShopUI(openShop);
-        battleLog.AddText(playerInst.name + "Leaves the shop, and encounters a new enemy!");
+        UI.ToggleShopUI(openShop, this);
+        battleLog.AddText(playerInst.name + " Leaves the shop, and encounters a new enemy!");
         //reset combat
         currentEnemy.Clear();
         SpawnEnemy();
