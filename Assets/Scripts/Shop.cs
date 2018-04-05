@@ -12,7 +12,7 @@ public class Shop
     
 
     //Declare shop bool
-    public bool leftShop;
+    public bool inCombat;
 
     //Setup Shop Prices
     public int herbPrice = 10;
@@ -24,16 +24,15 @@ public class Shop
     /// Displays the shop text when called.
     /// </summary>
     /// <param name="playerInst">Player instance.</param>
-    public void VisitShop(Player playerInst)
+    public void VisitShop(Player playerInst, BattleLogController battleLog)
     {
                 
         //Shop Text
-        Debug.Log("Welcome to the Shop!");
-        Debug.Log(playerInst.name + " has " + playerInst.gold + "GP.");
-        Debug.Log("Press 1 to purchase a Healing Herb for " + herbPrice + "GP.");
-        Debug.Log("Press 2 to Purchase a Damage Boost for " + damageBoostPrice + "GP.");
-        Debug.Log("Press 3 to purcase a Maximum Health boost for " + healthBoostPrice + "GP.");
-        Debug.Log("Press SPACE to leave the shop.");
+        battleLog.AddText("Welcome to the Shop!");
+        battleLog.AddText("Press 1 to purchase a Healing Herb for " + herbPrice + "GP.");
+        battleLog.AddText("Press 2 to Purchase a Damage Boost for " + damageBoostPrice + "GP.");
+        battleLog.AddText("Press 3 to Purchase a Maximum Health boost for " + healthBoostPrice + "GP.");
+        battleLog.AddText("Press SPACE to leave the shop.");
 
     }
 
@@ -42,21 +41,23 @@ public class Shop
     /// Purchases a Herb.
     /// </summary>
     /// <param name="playerInst">Player instance.</param>
-    public void BuyHerb(Player playerInst)
+    public void BuyHerb(Player playerInst, BattleLogController battleLog)
     {
         //if the player doesn't have enough GP...
         if (playerInst.gold < herbPrice)
         {
            
-            Debug.Log("Not enough GP!");
+            battleLog.AddText("Not enough GP!");
         }
         else
         {
             //pay the cost of the item
             playerInst.gold -= herbPrice;
+            //update the UI
+
             //give the player the item
             playerInst.herbs++;
-            Debug.Log(playerInst.name + " now has " + playerInst.herbs + " Healing Herbs.");
+            battleLog.AddText(playerInst.name + " now has " + playerInst.herbs + " Healing Herbs.");
         }
     }
 
@@ -64,12 +65,12 @@ public class Shop
     /// Purchases a Damage booster.
     /// </summary>
     /// <param name="playerInst">Player instance.</param>
-    public void BuyDamageBoost(Player playerInst)
+    public void BuyDamageBoost(Player playerInst, BattleLogController battleLog)
     {
         //if the player doesn't have enough GP...
         if (playerInst.gold < damageBoostPrice)
         {
-            Debug.Log("Not enough GP!");
+            battleLog.AddText("Not enough GP!");
         }
         else
             
@@ -77,7 +78,7 @@ public class Shop
             //pay the cost of the item
             playerInst.gold -= damageBoostPrice;	
             //boost the player's damage
-            playerInst.DamageBoost();	
+            playerInst.DamageBoost(battleLog);	
         }	
     }
 
@@ -85,19 +86,19 @@ public class Shop
     /// Purchases a Maximum HP booster.
     /// </summary>
     /// <param name="playerInst">Player instance.</param>
-    public void BuyMaxhealthBoost(Player playerInst)
+    public void BuyMaxhealthBoost(Player playerInst, BattleLogController battleLog)
     {
         //if they don't have enough GP...
         if (playerInst.gold < healthBoostPrice)
         {
-            Debug.Log("Not enough GP!");
+            battleLog.AddText("Not enough GP!");
         }
         else
         {   
             //pay the cost itf the item
             playerInst.gold -= healthBoostPrice;
             //boost the player's max health
-            playerInst.MaxHealthBoost();   
+            playerInst.MaxHealthBoost(battleLog);   
         }
     }
 

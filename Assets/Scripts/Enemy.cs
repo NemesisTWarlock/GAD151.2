@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 
@@ -36,22 +37,28 @@ public class Enemy
     /// </summary>
     public int gold;
 
+    public Sprite enemySprite;
+
+    public int experience;
+
     /// <summary>
     /// Default Constructor for the <see cref="Enemy"/> class.
-    /// </summary>
-    public Enemy()
-    {		
-        name = "Slime";
-        health = 5;
-        damage = 5;
-        item = "Slime Goo";
-        gold = 10;
-    }
+    // /// </summary>
+    // public Enemy()
+    // {		
+    //     name = "Slime";
+    //     health = 5;
+    //     damage = 5;
+    //     item = "Slime Goo";
+    //     gold = 10;
+    //     experience = 5;
+    //     enemySprite = null;
+    // }
 
     /// <summary>
     /// Custom constructor for the <see cref="Enemy"/> class.
     /// </summary>
-    public Enemy(string nameIN, int healthIN, int damageIN, string itemIN, int goldIN)
+    public Enemy(string nameIN, int healthIN, int damageIN, string itemIN, int goldIN, Sprite spriteIN, int expIN)
     {		
         //set custom attributes
         name = nameIN;
@@ -59,6 +66,8 @@ public class Enemy
         damage = damageIN;
         item = itemIN;
         gold = goldIN;
+        enemySprite = spriteIN;
+        experience = expIN;
     }
 
     // Copy constructor
@@ -69,24 +78,28 @@ public class Enemy
         damage = enemyIN.damage;
         item = enemyIN.item;
         gold = enemyIN.gold;
+        enemySprite = enemyIN.enemySprite;
+        experience = enemyIN.experience;
     }
 
     /// <summary>
     /// Prints a message declaring combat has begun to the Debug Log.
     /// </summary>
-    public void Encounter()
+    public void Encounter(BattleLogController battleLog)
     {
-        Debug.Log("A " + name + " draws near!");
+        //Print to the battle Log
+        battleLog.AddText("A " + name + " draws near!");
     }
 
     /// <summary>
     /// Attack the specified player instance.
     /// </summary>
     /// <param name="playerInst">player instance to attack.</param>
-    public void Attack(Player playerInst)
+    /// <param name="battleLog">The battleLogController (to display text)</param>
+    public void Attack(Player playerInst, BattleLogController battleLog)
     {
         //use Mathf.Max to make sure the player's Health doesn't fall below 0	
         playerInst.health = Mathf.Max(0, playerInst.health - damage);
-        Debug.Log(name + " Hits " + playerInst.name + " for " + damage + " damage, reducing their health to " + playerInst.health + "!");
+        battleLog.AddText(name + " Hits " + playerInst.name + " for " + damage + " damage, reducing their health to " + playerInst.health + "!");
     }
 }

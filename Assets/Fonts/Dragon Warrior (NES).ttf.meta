@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: 328302cda2224aa4f9d057951b2eac92
+timeCreated: 1522742661
+licenseType: Free
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Dragon Warrior (NES)
+  fontNames:
+  - Dragon Warrior (NES)
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 3
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

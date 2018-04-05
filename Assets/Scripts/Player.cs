@@ -55,8 +55,6 @@ public class Player
     public int killCount;
 
 
-
-
     /// <summary>
     /// Default Constructor for Player objects.
     /// </summary>
@@ -74,17 +72,19 @@ public class Player
     /// Attack the specified enemy instance.
     /// </summary>
     /// <param name="enemyInst">Enemy instance.</param>
-    public void Attack(Enemy enemyInst)
+    public void Attack(Enemy enemyInst, BattleLogController battleLog)
     {	
         //subtract weapon damage from enemy health (use Mathf.Max to make sure the enemy Health doesn't fall below 0)	
         enemyInst.health = Mathf.Max(0, enemyInst.health - damage);
-        Debug.Log(name + " Hits the " + enemyInst.name + " for " + damage + " damage, reducing it's health to " + enemyInst.health + "!");
+        //Update the UI
+
+        battleLog.AddText(name + " Hits the " + enemyInst.name + " for " + damage + " damage, reducing it's health to " + enemyInst.health + "!");
     }
 
     /// <summary>
     /// Heals the player by using a Healing Herb when called.
     /// </summary>
-    public void Heal()
+    public void Heal(BattleLogController battleLog)
     {
         //setup healing range
         int healAmount = Random.Range(25, 50);
@@ -92,19 +92,21 @@ public class Player
         //if already at max health...
         if (health == maxHealth)
         {
-            Debug.Log("Already at Max health!");
+            battleLog.AddText("Already at Max health!");
             return;
         }
         else
         {
             //heal the player
-            health = Mathf.Max(healAmount, maxHealth);
-            //remove a herb (YES, "A" HERB THANKYOU VERY MUCH I WILL DIE ON THIS COMMENTED HILL)
+            health += Mathf.Min(healAmount, maxHealth);
+            //remove a herb 
             herbs--;
+
+
+          
             //print text
-            Debug.Log(name + " Uses a Healing Herb, healing them for " + healAmount + "!");
-            Debug.Log(name + "'s HP: " + health);
-            Debug.Log(name + " has " + herbs + " herbs left.");
+            battleLog.AddText(name + " Uses a Healing Herb, healing them for " + healAmount + "!");
+            battleLog.AddText(name + " has " + herbs + " herbs left.");
         }
     }
 
@@ -112,14 +114,14 @@ public class Player
     /// <summary>
     /// Increases the player's damage output when called.
     /// </summary>
-    public void DamageBoost()
+    public void DamageBoost(BattleLogController battleLog)
     {
         //setup Damage boost range
         int dmgBoostAmount = Random.Range(2, 10);
         //Boost Damage
         damage += dmgBoostAmount;
         //Print Text
-        Debug.Log(name + " increases their total damage output by " + dmgBoostAmount + " to " + damage + "!");
+        battleLog.AddText(name + " increases their total damage output by " + dmgBoostAmount + " to " + damage + "!");
 
 
     }
@@ -127,14 +129,14 @@ public class Player
     /// <summary>
     /// Boosts the player's Maximum health when called. 
     /// </summary>
-    public void MaxHealthBoost()
+    public void MaxHealthBoost(BattleLogController battleLog)
     {
         //setup HP Boost range
         int hpBoostAmount = Random.Range(5, 20);
         //Boost Max HP
         maxHealth += hpBoostAmount;
         //Print Text
-        Debug.Log(name + " increases their health by " + hpBoostAmount + " to " + maxHealth + "!");
+        battleLog.AddText(name + " increases their health by " + hpBoostAmount + " to " + maxHealth + "!");
     }
 
 
