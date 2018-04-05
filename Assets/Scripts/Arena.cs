@@ -26,8 +26,7 @@ public class Arena : MonoBehaviour
     /// <summary>
     /// Wether the game has begun
     /// </summary>
-    [HideInInspector]
-    public bool gameStart = false;
+
 
     /// <summary>
     /// wether the music is about to change.
@@ -48,8 +47,12 @@ public class Arena : MonoBehaviour
     /// </summary>
     [HideInInspector]
     public AudioSource SFX;
+
     //The battleLog Controller
     public BattleLogController battleLog;
+
+    //The UI Controller
+    public UIController UI;
 
     // Arrays and Lists
 
@@ -92,178 +95,53 @@ public class Arena : MonoBehaviour
     void Start()
     {
 
-
-        //Cue the Music!
-        isMusicChanging = true;
-        ChangeBGM(audioLibrary[0]);
-
-        //close the shop (for flow control)
+        //Set the Combat state
         openShop.inCombat = true;
 
         //Set the player's Max Health
         player1.maxHealth = player1.health;
 
+        //Set the UI Controllers
+        UI = GameObject.Find("UIController").GetComponent<UIController>();
+        battleLog = GameObject.Find("BattleLogController").GetComponent<BattleLogController>();
 
-
-        //Set the UI Controller
-        battleLog = GameObject.Find("UIController").GetComponent<BattleLogController>();
+        //Spawn the first Enemy
+        SpawnEnemy();
 
     }
 
     //Updates each frame
     void Update()
     {
-        if (gameStart == false)
+
+
+
+
+
+        //While In Combat...
+
+        if (openShop.inCombat)
         {
-            //do nothing while waiting for initial input   
+            //Switch to Combat Music
+            ChangeBGM(audioLibrary[1]);
         }
 
-        //When the player hits the spacebar to start the game...
-        if (Input.GetKeyDown(KeyCode.Space) && !gameStart)
+
+
+
+
+
+
+        //Check wether the player's dead or not
+        CheckHealth(player1);
+
+
+        //If player has defeated an enemy, Go to PostCombat State
+        if (defeatedEnemy == true)
         {
-            //Start the Game
-            gameStart = true;
-            //Spawn the first Enemy
-            SpawnEnemy();
+            PostCombat(player1, currentEnemy[0]);
         }
 
-        ///once the game has begun...
-        if (gameStart == true)
-        {
-
-            //While In Combat...
-
-            if (openShop.inCombat)
-            {
-                //Switch to Combat Music
-                ChangeBGM(audioLibrary[1]);
-
-                //Check for Player Input
-
-                //Left CLick to Fight Enemy
-                if (Input.GetMouseButtonDown(0))
-                {
-                    SFX.PlayOneShot(audioLibrary[4]);
-                    Fight(player1, currentEnemy[0]);
-                }
-
-                //Right CLick to Reset Combat
-                if (Input.GetMouseButtonDown(1) && !playerIsDead)
-                {
-                    //play SFX
-                    SFX.PlayOneShot(audioLibrary[7]);
-
-                    battleLog.AddText(player1.name + " Flees from the combat, to find a better fight.");
-                    player1.fleeCount++;
-                    //Reset Combat
-                    currentEnemy.Clear();
-                    SpawnEnemy();
-                }
-
-                //if the player isn't Dead...
-                if (!playerIsDead)
-                {
-                    //shift key to use a herb to heal
-                    if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift))
-                    {
-                        //if the player's out of herbs, tell them as much
-                        if (player1.herbs == 0)
-                        {
-                            battleLog.AddText(player1.name + "is out of Healing Herbs!");
-                        }
-
-                        //if the player's already at max health play the buzzer sound
-                        else if (player1.health == player1.maxHealth)
-                        {
-                            SFX.PlayOneShot(audioLibrary[8]);
-                            player1.Heal(battleLog);
-                        }
-                        //otherwise, play the item use sound
-                        else
-                        {
-                            SFX.PlayOneShot(audioLibrary[5]);
-                            player1.Heal(battleLog);
-                        }
-                    }
-                }
-            }
-
-
-            //While in the shop...   
-
-            if (!openShop.inCombat)
-            {
-                //Healing Herb Purchase option
-                if (Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Keypad1))
-                {
-                    //play buzzer if they don't have enough GP
-                    if (player1.gold < openShop.herbPrice)
-                    {
-                        SFX.PlayOneShot(audioLibrary[8]);
-                        openShop.BuyHerb(player1, battleLog);
-
-                    }
-                    //otherwise, play the item purchase sound
-                    else
-                    {
-                        SFX.PlayOneShot(audioLibrary[6]);
-                        openShop.BuyHerb(player1, battleLog);
-                    }
-                }
-
-                //Damage Boost Purchase option
-                if (Input.GetKeyDown(KeyCode.Alpha2) || Input.GetKeyDown(KeyCode.Keypad2))
-                {
-                    //play buzzer if they don't have enough GP
-                    if (player1.gold < openShop.damageBoostPrice)
-                    {
-                        SFX.PlayOneShot(audioLibrary[8]);
-                        openShop.BuyDamageBoost(player1, battleLog);
-                    }
-                    //otherwise, play the item purchase sound
-                    else
-                    {
-                        SFX.PlayOneShot(audioLibrary[6]);
-                        openShop.BuyDamageBoost(player1, battleLog);
-                    }
-                }
-
-                //Max health boost purchase option
-                if (Input.GetKeyDown(KeyCode.Alpha3) || Input.GetKeyDown(KeyCode.Keypad3))
-                {
-                    //play buzzer if they don't have enough GP
-                    if (player1.gold < openShop.damageBoostPrice)
-                    {
-                        SFX.PlayOneShot(audioLibrary[8]);
-                        openShop.BuyMaxhealthBoost(player1, battleLog);
-                    }
-                    //otherwise, play the item purchase sound
-                    else
-                    {
-                        SFX.PlayOneShot(audioLibrary[6]);
-                        openShop.BuyMaxhealthBoost(player1, battleLog);
-                    }
-                }
-
-                //Leave Shop option
-                if (Input.GetKeyDown(KeyCode.Space))
-                {
-                    LeaveShop(player1);
-                }
-            }
-
-
-
-            //Check wether the player's dead or not
-            CheckHealth(player1);
-
-
-            //If player has defeated an enemy, Do Post Combat Step
-            if (defeatedEnemy == true)
-            {
-                PostCombat(player1, currentEnemy[0]);
-            }
-        }
 
     }
 
@@ -274,59 +152,113 @@ public class Arena : MonoBehaviour
     /// <param name="enemyInst">Enemy instance.</param>
     void Fight(Player playerInst, Enemy enemyInst)
     {
-        //if the player's health isn't 0
-        if (playerInst.health > 0)
+        if (!defeatedEnemy)
         {
-            //attack the enemy
-            playerInst.Attack(enemyInst, battleLog);
-
-            //if Enemy isn't dead, atack them back
-            if (enemyInst.health > 0)
+            //if the player's health isn't 0
+            if (playerInst.health > 0)
             {
-                enemyInst.Attack(playerInst, battleLog);
-            }
-        }
+                //attack the enemy
+                playerInst.Attack(enemyInst, battleLog);
 
-        //if they have defeated the enemy, toggle the defeatedenemy bool and increase their kill count
-        if (enemyInst.health == 0)
-        {
-            defeatedEnemy = true;
-            playerInst.killCount++;
+                //if Enemy isn't dead, atack them back
+                if (enemyInst.health > 0)
+                {
+                    enemyInst.Attack(playerInst, battleLog);
+                }
+            }
+
+            //if they have defeated the enemy, toggle the defeatedenemy bool and increase their kill count
+            if (enemyInst.health == 0)
+            {
+                defeatedEnemy = true;
+                playerInst.killCount++;
+            }
         }
     }
 
-    void FightOnClick()
+    public void FightOnClick()
     {
-        Fight(player1, currentEnemy[0]);
+        if (openShop.inCombat)
+        {
+            SFX.PlayOneShot(audioLibrary[4]);
+            Fight(player1, currentEnemy[0]);
+        }
     }
 
-    void ItemOnClick()
+    public void ItemOnClick()
     {
-        //if the player isn't Dead...
-        if (!playerIsDead)
+        if (openShop.inCombat)
         {
-            //if the player's out of herbs, tell them as much
-            if (player1.herbs == 0)
+            //if the player isn't Dead...
+            if (!playerIsDead)
             {
-                battleLog.AddText(player1.name + "is out of Healing Herbs!");
-            }
+                //if the player's out of herbs, tell them as much
+                if (player1.herbs == 0)
+                {
+                    battleLog.AddText(player1.name + "is out of Healing Herbs!");
+                }
 
-            //if the player's already at max health play the buzzer sound
-            else if (player1.health == player1.maxHealth)
+                //if the player's already at max health play the buzzer sound
+                else if (player1.health == player1.maxHealth)
+                {
+                    SFX.PlayOneShot(audioLibrary[8]);
+                    player1.Heal(battleLog);
+                }
+                //otherwise, play the item use sound
+                else
+                {
+                    SFX.PlayOneShot(audioLibrary[5]);
+                    player1.Heal(battleLog);
+                }
+            }
+        }
+        else
+        {
+            //Do nothing!
+        }
+    }
+
+    public void FleeOnClick()
+    {
+        //if in the combat state and not in the dead state...
+        if (openShop.inCombat && !playerIsDead)
+        {
+            //play SFX
+            SFX.PlayOneShot(audioLibrary[7]);
+
+            battleLog.AddText(player1.name + " Flees from the combat, to find a better fight.");
+            player1.fleeCount++;
+            //Reset Combat
+            currentEnemy.Clear();
+            SpawnEnemy();
+        }
+    }
+    public void LeaveShopOnClick()
+    {
+        if (!openShop.inCombat)
+        {
+            LeaveShop(player1);
+        }
+    }
+
+    public void BuyHerbOnClick()
+    {
+        if (!openShop.inCombat)
+        {
+            if (player1.gold < openShop.herbPrice)
             {
                 SFX.PlayOneShot(audioLibrary[8]);
-                player1.Heal(battleLog);
+                openShop.BuyHerb(player1, battleLog);
+
             }
-            //otherwise, play the item use sound
+            //otherwise, play the item purchase sound
             else
             {
-                SFX.PlayOneShot(audioLibrary[5]);
-                player1.Heal(battleLog);
+                SFX.PlayOneShot(audioLibrary[6]);
+                openShop.BuyHerb(player1, battleLog);
             }
         }
     }
-
-
     /// <summary>
     /// Manages enemy instance spawning.
     /// </summary>
@@ -339,8 +271,14 @@ public class Arena : MonoBehaviour
             isMusicChanging = true;
             ChangeBGM(audioLibrary[1]);
 
-            //pick a monster from the random encounter table then run the encounter function
+            //pick a monster from the random encounter table at random, then add it to the currentEnemy list
             currentEnemy.Add(new Enemy(enemyStats[Random.Range(0, enemyStats.Length)]));
+
+            UI.UpdateEnemyName(currentEnemy[0]);
+            UI.UpdateEnemyHP(currentEnemy[0]);
+            UI.UpdateEnemySprite(currentEnemy[0]);
+
+            //Run the currentEnemy's Encounter function
             currentEnemy[0].Encounter(battleLog);
 
         }
@@ -393,7 +331,6 @@ public class Arena : MonoBehaviour
 
         if (defeatedEnemy == true)
         {
-            //Loot Step
 
             //create a temporary item with the enemy's item stats
             Item tempItem = new Item(enemyInst);
@@ -409,13 +346,12 @@ public class Arena : MonoBehaviour
             ChangeBGM(audioLibrary[2]);
             //Open the shop
             openShop.inCombat = false;
+
             //Visit the Shop
             openShop.VisitShop(playerInst, battleLog);
-
-            //Final step
-
-            //Prepare the player or the next monster
             defeatedEnemy = false;
+
+
         }
 
     }
@@ -426,6 +362,8 @@ public class Arena : MonoBehaviour
     /// <param name="playerInst">Player instance.</param>
     public void LeaveShop(Player playerInst)
     {
+
+        defeatedEnemy = false;
         //leave the shop
         battleLog.AddText(playerInst.name + "Leaves the shop, and encounters a new enemy!");
         openShop.inCombat = true;

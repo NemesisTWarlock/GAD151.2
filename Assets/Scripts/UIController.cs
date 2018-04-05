@@ -8,7 +8,7 @@ public class UIController : MonoBehaviour
     //Get the Player's Data
     [HideInInspector]
     public Player player;
-
+    [HideInInspector]
     public Enemy enemy;
 
     //declare the Player text fields
@@ -66,6 +66,10 @@ public class UIController : MonoBehaviour
         playerGPText.text = "GP: " + playerInst.gold.ToString();
     }
 
+
+	
+    //Enemy UI functions
+    
     /// <summary>
     /// Updates the monster sprite.
     /// </summary>
@@ -77,8 +81,6 @@ public class UIController : MonoBehaviour
 
 
     }
-	
-    //Enemy UI functions
 
     public void UpdateEnemyName(Enemy enemyInst)
     {

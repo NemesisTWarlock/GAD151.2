@@ -28,12 +28,7 @@ public class Shop
     {
                 
         //Shop Text
-        battleLog.AddText("Welcome to the Shop!");
-        battleLog.AddText("Press 1 to purchase a Healing Herb for " + herbPrice + "GP.");
-        battleLog.AddText("Press 2 to Purchase a Damage Boost for " + damageBoostPrice + "GP.");
-        battleLog.AddText("Press 3 to Purchase a Maximum Health boost for " + healthBoostPrice + "GP.");
-        battleLog.AddText("Press SPACE to leave the shop.");
-
+        battleLog.AddText(playerInst.name + " Enters the Shop.");
     }
 
 
