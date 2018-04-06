@@ -169,11 +169,13 @@ public class Arena : MonoBehaviour
             {
                 //attack the enemy
                 playerInst.Attack(enemyInst, battleLog);
+                
 
                 //if Enemy isn't dead, atack them back
                 if (enemyInst.health > 0)
                 {
                     enemyInst.Attack(playerInst, battleLog);
+                    
                 }
             }
 
@@ -195,6 +197,8 @@ public class Arena : MonoBehaviour
         {
             SFX.PlayOneShot(audioLibrary[4]);
             Fight(player, currentEnemy[0]);
+            UI.UpdatePlayer(player);
+            UI.UpdateEnemyHP(currentEnemy[0]);
         }
     }
     /// <summary>
@@ -244,6 +248,7 @@ public class Arena : MonoBehaviour
             player.fleeCount++;
             //Reset Combat
             currentEnemy.Clear();
+            UI.ToggleSprite();
             SpawnEnemy();
         }
     }

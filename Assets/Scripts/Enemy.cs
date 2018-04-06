@@ -100,6 +100,6 @@ public class Enemy
     {
         //use Mathf.Max to make sure the player's Health doesn't fall below 0	
         playerInst.health = Mathf.Max(0, playerInst.health - damage);
-        battleLog.AddText(name + " Hits " + playerInst.name + " for " + damage + " damage, reducing their health to " + playerInst.health + "!");
+        battleLog.AddText(name + " Hits " + playerInst.name + " for " + damage + " damage!");
     }
 }

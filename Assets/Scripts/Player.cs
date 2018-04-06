@@ -84,7 +84,7 @@ public class Player
         enemyInst.health = Mathf.Max(0, enemyInst.health - damage);
         //Update the UI
 
-        battleLog.AddText(name + " Hits the " + enemyInst.name + " for " + damage + " damage, reducing it's health to " + enemyInst.health + "!");
+        battleLog.AddText(name + " Hits the " + enemyInst.name + " for " + damage + " damage!");
     }
 
     /// <summary>
