@@ -17,6 +17,7 @@ public class UIController : MonoBehaviour
     Text playerGPText;
     Text playerLevelText;
     Text playerXPText;
+    Text playerItemText;
 
     //Declare the Enemy Text Fields
     Text enemyNameText;
@@ -28,6 +29,8 @@ public class UIController : MonoBehaviour
     //declare the Shop and Command UI Objects
     GameObject commandUI;
     GameObject shopUI;
+
+    GameObject pauseUI;
 
     //Declare the Game Over Screen
     [HideInInspector]
@@ -42,6 +45,7 @@ public class UIController : MonoBehaviour
         playerGPText = GameObject.Find("GPText").GetComponent<Text>();
         playerLevelText = GameObject.Find("LevelText").GetComponent<Text>();
         playerXPText = GameObject.Find("XPNum").GetComponent<Text>();
+        playerItemText = GameObject.Find("ItemNum").GetComponent<Text>();
 
         //get the Enemies' Text Components
         enemyNameText = GameObject.Find("EnemyName").GetComponent<Text>();
@@ -58,12 +62,14 @@ public class UIController : MonoBehaviour
         playerGPText.text = "GP: " + player.gold.ToString();
         enemySprite.enabled = false;
 
-        //Get the Command and Shop UI objects
+        //Get the Toggleable UI Objects
         commandUI = GameObject.Find("CommandUI");
         shopUI = GameObject.Find("ShopUI");
-        gameOverUI = GameObject.Find("GameOverBox");
+        gameOverUI = GameObject.Find("GameOverUI");
+        pauseUI = GameObject.Find("PauseUI");
 
-        
+
+
 
     }
 
@@ -87,19 +93,29 @@ public class UIController : MonoBehaviour
     {
         playerGPText.text = "GP: " + playerInst.gold.ToString();
     }
-/// <summary>
-/// Updates the players XP.
-/// </summary>
-/// <param name="playerInst"></param>
-    public void UpdatePlayerXP(Player playerInst)
+
+    /// <summary>
+    /// Updates the player's item count.
+    /// </summary>
+    /// <param name="playerInst">Player instance.</param>
+    public void UpdatePlayerItem(Player playerInst)
     {
-        playerXPText.text = "XP: " + playerInst.experience.ToString();
+        playerItemText.text = playerInst.herbs.ToString();
     }
 
-/// <summary>
-/// Updates the player's Level.
-/// </summary>
-/// <param name="playerInst"></param>
+    /// <summary>
+    /// Updates the players XP.
+    /// </summary>
+    /// <param name="playerInst"></param>
+    public void UpdatePlayerXP(Player playerInst)
+    {
+        playerXPText.text = playerInst.experience.ToString();
+    }
+
+    /// <summary>
+    /// Updates the player's Level.
+    /// </summary>
+    /// <param name="playerInst"></param>
     public void UpdatePlayerLevel(Player playerInst)
     {
         playerLevelText.text = "Lv." + playerInst.level.ToString();
@@ -113,6 +129,7 @@ public class UIController : MonoBehaviour
     {
         UpdatePlayerGP(playerInst);
         UpdatePlayerHP(playerInst);
+        UpdatePlayerItem(playerInst);
         UpdatePlayerLevel(playerInst);
         UpdatePlayerXP(playerInst);
     }
@@ -158,13 +175,13 @@ public class UIController : MonoBehaviour
         UpdateEnemySprite(enemyInst);
     }
 
-//UI Window Toggles
+    //UI Window Toggles
 
-/// <summary>
-/// Toggles the Shop UI
-/// </summary>
-/// <param name="shop">Shop Instance</param>
-/// <param name="arena">Arena Instance</param>
+    /// <summary>
+    /// Toggles the Shop UI
+    /// </summary>
+    /// <param name="shop">Shop Instance</param>
+    /// <param name="arena">Arena Instance</param>
     public void ToggleShopUI(Shop shop, Arena arena)
     {
         if (shop.inCombat)
@@ -177,30 +194,79 @@ public class UIController : MonoBehaviour
             shopUI.SetActive(true);
             commandUI.SetActive(false);
         }
-        else if(arena.playerIsDead)
+        else if (arena.playerIsDead)
         {
             shopUI.SetActive(false);
             commandUI.SetActive(false);
         }
     }
 
-/// <summary>
-/// Toggles the Game Over Screen when called.
-/// </summary>
+    /// <summary>
+    /// Toggles the Game Over Screen when called.
+    /// </summary>
     public void ToggleGameOverScreen()
     {
-        gameOverUI.SetActive(true);        
+        gameOverUI.SetActive(true);
     }
 
-/// <summary>
-/// Toggles the Enemy Sprite on and off.
-/// </summary>
+    /// <summary>
+    /// Toggles the Enemy Sprite on and off.
+    /// </summary>
     public void ToggleSprite()
     {
-        if(enemySprite.enabled == true)
+        if (enemySprite.enabled == true)
         {
-        enemySprite.enabled = false;
+            enemySprite.enabled = false;
         }
         else enemySprite.enabled = true;
+    }
+
+    public void TogglePauseScreen(Shop shop, Arena arena)
+    {
+
+        if (arena.gamePaused)
+        {
+            if (shop.inCombat)
+            {
+                //disable the command UI
+                commandUI.SetActive(false);
+                //enable the Pause UI
+                pauseUI.SetActive(true);
+            }
+            else if (!shop.inCombat)
+            {
+                //disable the Shop UI
+                shopUI.SetActive(false);
+                //Enable the pause UI
+                pauseUI.SetActive(true);
+
+            }
+            else if (arena.playerIsDead)
+            {
+                //Do nothing, cause the game over screen's already up
+            }
+        }
+        else
+        {
+            if (shop.inCombat)
+            {
+                //enable the command UI
+                commandUI.SetActive(true);
+                //disable the Pause UI
+                pauseUI.SetActive(false);
+            }
+            else if (!shop.inCombat)
+            {
+                //enable the Shop UI
+                shopUI.SetActive(true);
+                //disable the pause UI
+                pauseUI.SetActive(false);
+
+            }
+            else if (arena.playerIsDead)
+            {
+                //Do nothing, cause the game over screen's already up
+            }
+        }
     }
 }

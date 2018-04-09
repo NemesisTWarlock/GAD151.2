@@ -23,7 +23,11 @@ public class Arena : MonoBehaviour
     [HideInInspector]
     public bool defeatedEnemy = false;
 
-    // wether the first enemy has spawned
+    public bool gamePaused = false;
+
+    /// <summary>
+    /// Wether the first enemy has spawned
+    /// </summary>
     bool gameStart = false;
 
     /// <summary>
@@ -118,6 +122,8 @@ public class Arena : MonoBehaviour
             UI.gameOverUI.SetActive(false);
             //Toggle the Combat UI
             UI.ToggleShopUI(openShop, this);
+            //toggle the pause screen
+            UI.TogglePauseScreen(openShop, this);
             //Update the player's stats
             UI.UpdatePlayer(player);
             //Spawn the first enemy         
@@ -125,20 +131,13 @@ public class Arena : MonoBehaviour
             //Make this run only once
             gameStart = true;
         }
-        //While In Combat...
 
-        if (openShop.inCombat)
-        {
-            //Switch to Combat Music
-            ChangeBGM(audioLibrary[1]);
-        }
+        //Per Frame Checks
 
-        //Check wether the player's dead or not
+        //Check whether the player's dead or not
         CheckHealth(player);
-        //Check the player's XP for Levelling up
+        //Check the player's XP if they levelled up
         CheckXP(player);
-
-
 
         //If player has defeated an enemy, Go to PostCombat State
         if (defeatedEnemy == true)
@@ -146,10 +145,19 @@ public class Arena : MonoBehaviour
             PostCombat(player, currentEnemy[0]);
         }
 
+
+        //Keyboard Input
+
         //Hit F12 to take a Screenshot
         if (Input.GetKeyDown(KeyCode.F12))
         {
             ScreenCapture.CaptureScreenshot("Screenshot.png");
+        }
+
+        //Hit ESC to pause the game
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            PauseToggle();
         }
 
 
@@ -169,13 +177,13 @@ public class Arena : MonoBehaviour
             {
                 //attack the enemy
                 playerInst.Attack(enemyInst, battleLog);
-                
+
 
                 //if Enemy isn't dead, atack them back
                 if (enemyInst.health > 0)
                 {
                     enemyInst.Attack(playerInst, battleLog);
-                    
+
                 }
             }
 
@@ -195,8 +203,11 @@ public class Arena : MonoBehaviour
     {
         if (openShop.inCombat)
         {
+            //play Sound Effect
             SFX.PlayOneShot(audioLibrary[4]);
+            //Fight Enemy
             Fight(player, currentEnemy[0]);
+            //Update the UI Elements
             UI.UpdatePlayer(player);
             UI.UpdateEnemyHP(currentEnemy[0]);
         }
@@ -214,6 +225,7 @@ public class Arena : MonoBehaviour
                 //if the player's out of herbs, tell them as much
                 if (player.herbs == 0)
                 {
+                    SFX.PlayOneShot(audioLibrary[8]);
                     battleLog.AddText(player.name + " is out of Healing Herbs!");
                 }
 
@@ -228,6 +240,8 @@ public class Arena : MonoBehaviour
                 {
                     SFX.PlayOneShot(audioLibrary[5]);
                     player.Heal(battleLog);
+                    UI.UpdatePlayerHP(player);
+                    UI.UpdatePlayerItem(player);
                 }
             }
         }
@@ -243,8 +257,12 @@ public class Arena : MonoBehaviour
         {
             //play SFX
             SFX.PlayOneShot(audioLibrary[7]);
-
-            battleLog.AddText(player.name + " Flees from the combat, to find a better fight.");
+            int goldloss;
+            goldloss = Random.Range(1,5);
+            battleLog.AddText(player.name + " Flees from the combat. They lose " + goldloss.ToString() +"GP in the panic!");
+            
+            player.gold = Mathf.Max(player.gold - goldloss, 0);
+            UI.UpdatePlayerGP(player);
             player.fleeCount++;
             //Reset Combat
             currentEnemy.Clear();
@@ -472,6 +490,26 @@ public class Arena : MonoBehaviour
         playerInst.DamageBoost(battleLog);
         //Update the Player's UI
         UI.UpdatePlayer(playerInst);
+    }
+
+
+    void PauseToggle()
+    {
+        //If the game isn't paused
+        if (!gamePaused)
+        {
+            //set the game pause bool
+            gamePaused = true;
+            //Toggle the Pause UI
+            UI.TogglePauseScreen(openShop, this);
+        }
+        //if the game is paused, do the same,
+        else if (gamePaused)
+        {
+            //except set the bool to false.
+            gamePaused = false;
+            UI.TogglePauseScreen(openShop, this);
+        }
     }
 
 }

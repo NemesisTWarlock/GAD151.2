@@ -105,7 +105,7 @@ public class Player
         else
         {
             //heal the player
-            health += Mathf.Min(healAmount, maxHealth);
+            health = Mathf.Min(health + healAmount, maxHealth);
             //remove a herb 
             herbs--;
 
