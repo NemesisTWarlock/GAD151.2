@@ -337,11 +337,13 @@ public class Arena : MonoBehaviour
 
             //Death Text
             battleLog.AddText("Alas, " + playerInst.name + " has Fallen.");
-            battleLog.AddText("GAME OVER");
             battleLog.AddText("Final Stats:");
             battleLog.AddText("Number of Enemies Defeated: " + playerInst.killCount);
             battleLog.AddText("Number of times fleed from combat: " + playerInst.fleeCount);
+            //Set Flow bools
             playerIsDead = true;
+            openShop.inCombat = false;
+            //Toggle the Game over screen
             UI.ToggleGameOverScreen();
         }
 
@@ -392,9 +394,9 @@ public class Arena : MonoBehaviour
     /// <param name="playerInst">Player instance.</param>
     public void LeaveShop(Player playerInst)
     {
-
+        //set Flow Control bool
         defeatedEnemy = false;
-        //leave the shop      
+        //Switch to Combat Mode
         openShop.inCombat = true;
         UI.ToggleShopUI(openShop, this);
         battleLog.AddText(playerInst.name + " Leaves the shop, and encounters a new enemy!");
@@ -436,7 +438,7 @@ public class Arena : MonoBehaviour
     {
         //Reward the player with XP
         playerInst.experience += enemyInst.experience;
-        //Write to the Battle Log
+        //Write to the Battle Log and UI
         battleLog.AddText(playerInst.name + " gains " + enemyInst.experience.ToString() + " XP!");
         UI.UpdatePlayerXP(playerInst);
     }

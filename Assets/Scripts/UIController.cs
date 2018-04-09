@@ -56,7 +56,6 @@ public class UIController : MonoBehaviour
         playerNameText.text = player.name.ToString();
         playerHPText.text = "HP: " + player.health.ToString();
         playerGPText.text = "GP: " + player.gold.ToString();
-        //enemySprite.sprite = Resources.Load<Sprite>("Characters/Slime");
         enemySprite.enabled = false;
 
         //Get the Command and Shop UI objects
@@ -88,12 +87,19 @@ public class UIController : MonoBehaviour
     {
         playerGPText.text = "GP: " + playerInst.gold.ToString();
     }
-
+/// <summary>
+/// Updates the players XP.
+/// </summary>
+/// <param name="playerInst"></param>
     public void UpdatePlayerXP(Player playerInst)
     {
         playerXPText.text = "XP: " + playerInst.experience.ToString();
     }
 
+/// <summary>
+/// Updates the player's Level.
+/// </summary>
+/// <param name="playerInst"></param>
     public void UpdatePlayerLevel(Player playerInst)
     {
         playerLevelText.text = "Lv." + playerInst.level.ToString();
@@ -125,7 +131,7 @@ public class UIController : MonoBehaviour
 
     }
     /// <summary>
-    /// Updates the enemy Name UI element.
+    /// Updates the Enemy name.
     /// </summary>
     /// <param name="enemyInst">Enemy Instance.</param>
     public void UpdateEnemyName(Enemy enemyInst)
@@ -133,7 +139,7 @@ public class UIController : MonoBehaviour
         enemyNameText.text = enemyInst.name;
     }
     /// <summary>
-    /// Updates the Enemy HP UI Element.
+    /// Updates Enemy HP.
     /// </summary>
     /// <param name="enemyInst">Enemy Instance.</param>
     public void UpdateEnemyHP(Enemy enemyInst)
@@ -152,6 +158,13 @@ public class UIController : MonoBehaviour
         UpdateEnemySprite(enemyInst);
     }
 
+//UI Window Toggles
+
+/// <summary>
+/// Toggles the Shop UI
+/// </summary>
+/// <param name="shop">Shop Instance</param>
+/// <param name="arena">Arena Instance</param>
     public void ToggleShopUI(Shop shop, Arena arena)
     {
         if (shop.inCombat)
@@ -171,11 +184,17 @@ public class UIController : MonoBehaviour
         }
     }
 
+/// <summary>
+/// Toggles the Game Over Screen when called.
+/// </summary>
     public void ToggleGameOverScreen()
     {
         gameOverUI.SetActive(true);        
     }
 
+/// <summary>
+/// Toggles the Enemy Sprite on and off.
+/// </summary>
     public void ToggleSprite()
     {
         if(enemySprite.enabled == true)

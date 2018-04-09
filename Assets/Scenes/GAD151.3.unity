@@ -312,7 +312,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 8bb446d762fd2a5458774faeede20011, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 683b73db5d0240341adddd482a752531, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1549,6 +1549,27 @@ Prefab:
     - target: {fileID: 1852907086181588, guid: 0b83918712ca9304aa44ed666f5f98bc, type: 2}
       propertyPath: m_Name
       value: EnemySprite
+      objectReference: {fileID: 0}
+    - target: {fileID: 114510168680819894, guid: 0b83918712ca9304aa44ed666f5f98bc,
+        type: 2}
+      propertyPath: m_PreserveAspect
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114510168680819894, guid: 0b83918712ca9304aa44ed666f5f98bc,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 1d1b6b453408351459fab407f44d2023,
+        type: 3}
+    - target: {fileID: 114510168680819894, guid: 0b83918712ca9304aa44ed666f5f98bc,
+        type: 2}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114510168680819894, guid: 0b83918712ca9304aa44ed666f5f98bc,
+        type: 2}
+      propertyPath: m_RaycastTarget
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0b83918712ca9304aa44ed666f5f98bc, type: 2}
@@ -3263,31 +3284,31 @@ MonoBehaviour:
   enemyStats:
   - name: Slime
     health: 5
-    damage: 5
+    damage: 2
     item: Slime Goo
     gold: 10
     enemySprite: {fileID: 21300000, guid: 04c19adee96fab34697071b42dd7b0ec, type: 3}
     experience: 5
-  - name: Dracky
+  - name: Rat
     health: 20
     damage: 5
-    item: Dracky Wing
+    item: Rat Tail
     gold: 20
-    enemySprite: {fileID: 21300000, guid: bcc0b10a3c3b1964f91044649f496066, type: 3}
+    enemySprite: {fileID: 21300000, guid: 4d41f32f744b94e48beaf63af57a19a9, type: 3}
     experience: 10
-  - name: Skeleton
+  - name: Ghost
     health: 50
     damage: 10
-    item: Skeleton Bone
+    item: Ectoplasm
     gold: 25
-    enemySprite: {fileID: 21300000, guid: 6497bca19ac641d40bbfedece37ffcec, type: 3}
+    enemySprite: {fileID: 21300000, guid: 3cb4e7644e73db147a01dabffb12ec12, type: 3}
     experience: 50
   - name: Dragon
     health: 100
     damage: 15
     item: Dragon Scale
     gold: 50
-    enemySprite: {fileID: 21300000, guid: 64c4403af73919b4794aa8aaa328d8ba, type: 3}
+    enemySprite: {fileID: 21300000, guid: b8206c32526104f4381a39e8322edc1d, type: 3}
     experience: 100
   - name: Metal Slime
     health: 1000

@@ -9,5 +9,8 @@ EditorBuildSettings:
     path: Assets/Scenes/TitleScreen.unity
     guid: 478b85fc5073fa344b57927833909a99
   - enabled: 1
-    path: Assets/Scenes/GAD151.2.unity
+    path: Assets/Scenes/GAD151.3.unity
     guid: 00663b1d1122d2545bf314986b6f6877
+  - enabled: 1
+    path: Assets/Scenes/Credits.unity
+    guid: 8f141b0ac7cb2d2478b66b8de8c14b4c
